@@ -376,10 +376,10 @@
     </footer>
 
     <script>
-        // ==========================================
-        // 🚨 重要：請在此處填入您部署好的 Google Apps Script 網頁應用程式 URL
-        // ==========================================
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-ffUAoOT1lpU7ZLSAWeBIFtB_go-uDuwHH6qKETFtCQ8dYpg_KE9hcROgYEgPDyg/exec";
+        // ========================================================
+        // 🚨 重要：請在此處填入您「全新部署」後的 Google Apps Script URL
+        // ========================================================
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyaxEbK6BlAmjlSwQwjMWSRxzLAQqw8t-JwlDQbY3-3YUYHH53sEL7dRfE5qA7MD1xc/exec";
 
         // 深淺色主題切換
         function toggleTheme() {
@@ -445,7 +445,7 @@
                     { severity: 2, text: "您經常一邊吃飯一邊觀看影音（或玩遊戲），導致用餐時間過長，日常作息開始出現混亂。", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=150&q=80", emoji: "🍜" },
                     { severity: 3, text: "因為過度使用手機，您處理日常事務（如整理環境）的效率變差，生活空間開始變得雜亂。", img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=150&q=80", emoji: "🧺" },
                     { severity: 4, text: "手機嚴重影響了您的睡眠品質，導致白天上課或上班時精神不振、難以集中注意力。", img: "https://images.unsplash.com/photo-1511295742364-92767fa62d9f?auto=format&fit=crop&w=150&q=80", emoji: "🥱" },
-                    { severity: 5, text: "您因為過度沉迷手機而經常遲到、甚至無法完成報告，基本的日常作息與學業（或工作）已面臨停擺狀態。", img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=150&q=80", emoji: "💥" }
+                    { severity: 5, text: "您因為過度沉沉迷手機而經常遲到、甚至無法完成報告，基本的日常作息與學業（或工作）已面臨停擺狀態。", img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=150&q=80", emoji: "💥" }
                 ]
             },
             {
@@ -726,12 +726,11 @@
             });
         }
 
-        // 核心上傳函數：透過 Fetch POST 發送完整 JSON 封包到 Google Apps Script
+        // 核心上傳函數：利用 Blob + text/plain 發送，保證在任何瀏覽器下都能繞過 CORS 成功回傳至 GAS
         function sendDataToGoogleSheets() {
             const syncBar = document.getElementById('sheets-sync-bar');
             
-            // 如果使用者沒有設定 URL，提示並跳過
-            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbyaxEbK6BlAmjlSwQwjMWSRxzLAQqw8t-JwlDQbY3-3YUYHH53sEL7dRfE5qA7MD1xc/exec") {
                 syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-amber-500/10 text-amber-500 border border-amber-500/20";
                 syncBar.innerHTML = `⚠️ 尚未設定 Google 試算表串接網址，數據僅在本地端運作。`;
                 return;
@@ -752,25 +751,38 @@
                 socialImpact: dimScores.find(d => d.id === 'socialImpact')?.score || 0
             };
 
-            // 使用 fetch 將資料以 json 格式傳送
-            fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors', // 避開跨網域安全性錯誤
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(() => {
-                // 因使用 no-cors 模式，只要沒有 catch Error 即代表成功送出
+            const payloadString = JSON.stringify(payload);
+
+            // 優先嘗試最穩定的 navigator.sendBeacon (背景非同步發送，能完美避開 CORS)
+            let beaconSent = false;
+            if (navigator.sendBeacon) {
+                const blob = new Blob([payloadString], { type: 'text/plain' });
+                beaconSent = navigator.sendBeacon(GOOGLE_SCRIPT_URL, blob);
+            }
+
+            if (beaconSent) {
                 syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20";
-                syncBar.innerHTML = `✨ 數據已成功備份至雲端 Google Sheets！感謝您的協助。`;
-            })
-            .catch(error => {
-                console.error("雲端上傳錯誤:", error);
-                syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-rose-500/10 text-rose-500 border border-rose-500/20";
-                syncBar.innerHTML = `❌ 雲端同步失敗。請確認網路狀態後重新整理頁面。`;
-            });
+                syncBar.innerHTML = `✨ 數據已排程同步至雲端試算表！感謝您的協助。`;
+            } else {
+                // 如果不支援 Beacon，則使用 Fetch 的 POST fallback 機制
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // 避開跨網域限制
+                    headers: {
+                        'Content-Type': 'text/plain' // 使用 text/plain 避免觸發預檢請求 (Preflight)
+                    },
+                    body: payloadString
+                })
+                .then(() => {
+                    syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20";
+                    syncBar.innerHTML = `✨ 數據已成功同步至雲端 Google Sheets！感謝您的協助。`;
+                })
+                .catch(error => {
+                    console.error("雲端上傳錯誤:", error);
+                    syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-rose-500/10 text-rose-500 border border-rose-500/20";
+                    syncBar.innerHTML = `❌ 雲端同步失敗。請確認網路狀態後重新整理頁面。`;
+                });
+            }
         }
 
         function drawRadarChart() {
