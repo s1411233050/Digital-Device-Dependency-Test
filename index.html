@@ -730,7 +730,8 @@
         function sendDataToGoogleSheets() {
             const syncBar = document.getElementById('sheets-sync-bar');
             
-            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbyaxEbK6BlAmjlSwQwjMWSRxzLAQqw8t-JwlDQbY3-3YUYHH53sEL7dRfE5qA7MD1xc/exec") {
+            // 防呆機制修正：避免因為大量取代導致與自己設定好的網址匹配
+            if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("YOUR_GOOGLE_APPS") || GOOGLE_SCRIPT_URL === "") {
                 syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-amber-500/10 text-amber-500 border border-amber-500/20";
                 syncBar.innerHTML = `⚠️ 尚未設定 Google 試算表串接網址，數據僅在本地端運作。`;
                 return;
@@ -1042,7 +1043,7 @@
 
             const systemPrompt = `您是一位專業、溫和、且極具耐心的心理諮商顧問。
             請依據使用者的作答資料，用清晰、好理解且充滿同理心的正式口吻（使用「您」）撰寫個人分析報告。
-            您必須嚴格遵守以下 JSON 格式回覆，絕對不能包含任何 \`\`\`json 等 Markdown 包裝：
+            您必須嚴格遵守以下 JSON 格式回覆，絕對不能包含 any \`\`\`json 等 Markdown 包裝：
             {
               "summary": "一句對使用者拔河狀態的溫和、中肯、富含心理學同理心的簡短描述（繁體中文，限 60 字）",
               "strength": "客觀指出並肯定使用者目前保持良好掌控的優點，若無也請予以心理建設鼓勵（繁體中文，限 40 字）",
