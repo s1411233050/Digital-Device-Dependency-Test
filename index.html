@@ -445,7 +445,7 @@
         // ========================================================
         // 🚨 重要：請在此處填入您「全新部署」後的 Google Apps Script URL
         // ========================================================
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby--i2W8qI-GhGSxDum5DYHdc1U7S5FAT_r2D_qFelD6Pz4sLqTiCpHi5QHDg7SGprB/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw27Gz0mHJ7c8biazPLchPw8qyuNKS0buK40KBpNnwWwzgim_EoZeqSDm-gUUdYfJWa/exec";
 
         // 深淺色主題切換
         function toggleTheme() {
@@ -511,7 +511,7 @@
                     { severity: 2, text: "您經常一邊吃飯一邊觀看影音（或玩遊戲），導致用餐時間過長，日常作息開始出現混亂。", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=150&q=80", emoji: "🍜" },
                     { severity: 3, text: "因為過度使用手機，您處理日常事務（如整理環境）的效率變差，生活空間開始變得雜亂。", img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=150&q=80", emoji: "🧺" },
                     { severity: 4, text: "手機嚴重影響了您的睡眠品質，導致白天上課或上班時精神不振、難以集中注意力。", img: "https://images.unsplash.com/photo-1511295742364-92767fa62d9f?auto=format&fit=crop&w=150&q=80", emoji: "🥱" },
-                    { severity: 5, text: "您因為過度沉迷於手機而經常遲到、甚至無法完成報告，基本的日常作息與學業（或工作）已面臨停擺狀態。", img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=150&q=80", emoji: "💥" }
+                    { severity: 5, text: "您因為過度沉沉迷手機而經常遲到、甚至無法完成報告，基本的日常作息與學業（或工作）已面臨停擺狀態。", img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=150&q=80", emoji: "💥" }
                 ]
             },
             {
@@ -544,6 +544,147 @@
 
         let currentDimension = 0;
         let quizState = {}; 
+
+        // ==========================================
+        // 說明彈窗控制邏輯
+        // ==========================================
+        function openInstructionsModal() {
+            const modal = document.getElementById('instructions-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('pointer-events-auto');
+                modal.querySelector('.glass-panel').classList.remove('scale-90');
+                modal.querySelector('.glass-panel').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeInstructionsModal() {
+            const modal = document.getElementById('instructions-modal');
+            modal.classList.add('opacity-0');
+            modal.classList.remove('pointer-events-auto');
+            modal.querySelector('.glass-panel').classList.add('scale-90');
+            modal.querySelector('.glass-panel').classList.remove('scale-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function startQuiz() {
+            document.getElementById('view-landing').classList.add('hidden');
+            document.getElementById('view-quiz').classList.remove('hidden');
+            
+            // 隨機打亂初始排列以檢測認知
+            quizData.forEach(dim => {
+                let shuffled = [...dim.items].sort(() => Math.random() - 0.5);
+                quizState[dim.id] = {
+                    shuffledItems: shuffled,
+                    checkedRealities: {}
+                };
+            });
+            
+            currentDimension = 0;
+            renderCurrentDimension();
+        }
+
+        function renderCurrentDimension() {
+            const data = quizData[currentDimension];
+            const state = quizState[data.id];
+
+            document.getElementById('dimension-category').textContent = data.title.split(' ')[1];
+            document.getElementById('progress-text').textContent = `關卡 ${currentDimension + 1} / 5`;
+            document.getElementById('progress-bar').style.width = `${(currentDimension + 1) * 20}%`;
+            
+            document.getElementById('dimension-title').textContent = data.title;
+            document.getElementById('dimension-desc').textContent = data.desc;
+            document.getElementById('dimension-illustration').textContent = data.illustration;
+
+            const container = document.getElementById('cards-container');
+            container.innerHTML = '';
+
+            state.shuffledItems.forEach((item, index) => {
+                const isChecked = state.checkedRealities[item.severity] || false;
+                const card = document.createElement('div');
+                card.className = `p-3 rounded-2xl border flex items-center justify-between space-x-3 card-transition relative z-10 shadow-sm ${isChecked ? 'border-rose-500 bg-rose-50/20 dark:bg-rose-950/10 ring-2 ring-rose-500/30' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 hover:border-blue-400 dark:hover:border-blue-900'}`;
+                card.setAttribute('draggable', 'true');
+                card.setAttribute('data-index', index);
+
+                // 綁定極流暢的 HTML5 動態拖曳事件
+                card.addEventListener('dragstart', handleDragStart);
+                card.addEventListener('dragover', handleDragOver);
+                card.addEventListener('drop', handleDrop);
+                card.addEventListener('dragend', handleDragEnd);
+
+                card.innerHTML = `
+                    <div class="flex items-center space-x-1.5 shrink-0">
+                        <div class="cursor-grab text-slate-400 hover:text-slate-600 p-1 hidden sm:block">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </div>
+                        <div class="flex flex-col space-y-0.5">
+                            <button onclick="moveCard(${index}, 'up', event)" class="p-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200" ${index === 0 ? 'disabled style="opacity: 0.15;"' : ''}>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <button onclick="moveCard(${index}, 'down', event)" class="p-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200" ${index === 4 ? 'disabled style="opacity: 0.15;"' : ''}>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 雙層相容圖像徽章架構 -->
+                    <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-slate-800 dark:to-slate-700 relative shadow-inner flex items-center justify-center text-lg">
+                        <span class="z-0 pointer-events-none text-xl">${item.emoji}</span>
+                        <img src="${item.img}" alt="插圖" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 z-10 pointer-events-none" onload="this.style.opacity='1';" onerror="this.remove();">
+                    </div>
+
+                    <!-- 行為題目描述 -->
+                    <div class="flex-grow text-[11px] sm:text-xs leading-relaxed text-slate-800 dark:text-slate-200 px-1 font-semibold">
+                        ${item.text}
+                    </div>
+
+                    <!-- 「這符合我」判定勾選按鈕 -->
+                    <button onclick="toggleReality(${item.severity}, event)" class="flex flex-col items-center justify-center shrink-0 p-1.5 rounded-xl border transition-all duration-300 focus:outline-none ${isChecked ? 'bg-gradient-to-r from-rose-500 to-pink-500 border-transparent text-white scale-105 shadow-md shadow-rose-500/20' : 'border-slate-200 dark:border-slate-700 hover:border-rose-400/50 text-slate-400'}" style="min-width: 58px; height: 50px;">
+                        <span class="text-xs">${isChecked ? '🔥' : '✨'}</span>
+                        <span class="text-[8px] font-bold mt-0.5 whitespace-nowrap">這符合我</span>
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('btn-prev').disabled = currentDimension === 0;
+            document.getElementById('btn-prev').style.opacity = currentDimension === 0 ? '0.3' : '1';
+
+            if (currentDimension === quizData.length - 1) {
+                document.getElementById('btn-next').textContent = "結算拔河戰況 🎉";
+            } else {
+                document.getElementById('btn-next').textContent = "確認送出並前往下一關 ➔";
+            }
+        }
+
+        function moveCard(index, direction, event) {
+            event.stopPropagation();
+            const state = quizState[quizData[currentDimension].id];
+            const targetIndex = direction === 'up' ? index - 1 : index + 1;
+            
+            if (targetIndex >= 0 && targetIndex < 5) {
+                const temp = state.shuffledItems[index];
+                state.shuffledItems[index] = state.shuffledItems[targetIndex];
+                state.shuffledItems[targetIndex] = temp;
+                renderCurrentDimension();
+            }
+        }
+
+        function toggleReality(severity, event) {
+            event.stopPropagation();
+            const state = quizState[quizData[currentDimension].id];
+            state.checkedRealities[severity] = !state.checkedRealities[severity];
+            renderCurrentDimension();
+        }
 
         // ==========================================
         // 優化後的極流暢即時排序 (Dnd Flow Engine)
@@ -727,11 +868,12 @@
         }
 
         // ==========================================
-        // 🌟 核心數據打包：全維度詳盡數據傳送
+        // 🌟 核心數據打包與傳送：修正為不使用 sendBeacon 以保證 Payload 在 doPost 中被完整讀取
         // ==========================================
         function sendDataToGoogleSheets() {
             const syncBar = document.getElementById('sheets-sync-bar');
             
+            // 防呆機制修正：避免因為大量取代導致與自己設定好的網址匹配
             if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("YOUR_GOOGLE_APPS") || GOOGLE_SCRIPT_URL === "") {
                 syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-amber-500/10 text-amber-500 border border-amber-500/20";
                 syncBar.innerHTML = `⚠️ 尚未設定 Google 試算表串接網址，數據僅在本地端運作。`;
@@ -744,17 +886,17 @@
             // 建立完整的 JSON 扁平化 Payload 物件
             const payload = {
                 timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
-                cognitiveScore: globalResults.cognitiveScore + "%",
-                addictionScore: globalResults.addictionScore + "%",
-                flexibilityScore: globalResults.flexibilityScore + "%",
+                cognitiveScore: globalResults.cognitiveScore,
+                addictionScore: globalResults.addictionScore,
+                flexibilityScore: globalResults.flexibilityScore,
                 verdict: document.getElementById('tug-verdict').innerText.replace(/[\n\r]+/g, ' '),
                 verdictDescription: document.getElementById('tug-percentage-stat').innerText.replace(/[\n\r]+/g, ' '),
                 
-                emotionScore: (dimScores.find(d => d.id === 'emotion')?.score || 0) + "%",
-                selfControlScore: (dimScores.find(d => d.id === 'selfControl')?.score || 0) + "%",
-                dailyLifeScore: (dimScores.find(d => d.id === 'dailyLife')?.score || 0) + "%",
-                dependencyScore: (dimScores.find(d => d.id === 'dependency')?.score || 0) + "%",
-                socialImpactScore: (dimScores.find(d => d.id === 'socialImpact')?.score || 0) + "%",
+                emotionScore: (dimScores.find(d => d.id === 'emotion')?.score || 0),
+                selfControlScore: (dimScores.find(d => d.id === 'selfControl')?.score || 0),
+                dailyLifeScore: (dimScores.find(d => d.id === 'dailyLife')?.score || 0),
+                dependencyScore: (dimScores.find(d => d.id === 'dependency')?.score || 0),
+                socialImpactScore: (dimScores.find(d => d.id === 'socialImpact')?.score || 0),
                 
                 emotionOrder: quizState['emotion'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
                 selfControlOrder: quizState['selfControl'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
@@ -773,34 +915,25 @@
 
             const payloadString = JSON.stringify(payload);
 
-            let beaconSent = false;
-            if (navigator.sendBeacon) {
-                const blob = new Blob([payloadString], { type: 'text/plain' });
-                beaconSent = navigator.sendBeacon(GOOGLE_SCRIPT_URL, blob);
-            }
-
-            if (beaconSent) {
+            // 🔴 關鍵修正：停止使用 navigator.sendBeacon 發送「文字/純文字」Blob，因為它有時無法觸發 POST 的正確認證。
+            // 改採標準 Fetch POST 方式，並使用 JSON 格式傳遞，確保 doPost 的 contents 被正確擷取！
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors', // 用於防範 CORS 預檢阻擋，並確保 GAS 端 doPost 仍能順利接收 text/plain 資料流
+                headers: {
+                    'Content-Type': 'text/plain' 
+                },
+                body: payloadString
+            })
+            .then(() => {
                 syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20";
-                syncBar.innerHTML = `✨ 詳細數據及作答軌跡已同步回傳雲端試算表！`;
-            } else {
-                fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'text/plain'
-                    },
-                    body: payloadString
-                })
-                .then(() => {
-                    syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20";
-                    syncBar.innerHTML = `✨ 詳細數據及作答軌跡已成功同步至雲端試算表！`;
-                })
-                .catch(error => {
-                    console.error("雲端同步失敗:", error);
-                    syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-rose-500/10 text-rose-500 border border-rose-500/20";
-                    syncBar.innerHTML = `❌ 雲端同步失敗。請確認網路狀態後重新整理頁面。`;
-                });
-            }
+                syncBar.innerHTML = `✨ 詳細數據及作答軌跡已成功同步至雲端試算表！`;
+            })
+            .catch(error => {
+                console.error("雲端同步失敗:", error);
+                syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-rose-500/10 text-rose-500 border border-rose-500/20";
+                syncBar.innerHTML = `❌ 雲端同步失敗。請確認網路狀態後重新整理頁面。`;
+            });
         }
 
         function drawRadarChart() {
@@ -1056,8 +1189,8 @@
             });
 
             const systemPrompt = `您是一位專業、溫和、且極具耐心的心理諮商 AI。
-            請依據使用者的作答資料，用清晰、好理解且充滿同理心的正式口吻（使用「您」）撰寫個人分析報告。
-            您必須嚴格遵守以下 JSON 格式回覆，絕對不能包含 any \`\`\`json 等 Markdown 包裝：
+            請依據使用者的作談資料，用清晰、好理解且充滿同理心的正式口吻（使用「您」）撰寫個人分析報告。
+            您必須嚴格遵守以下 JSON 格式回覆，絕對不能包含 any \"\"\"json 等 Markdown 包裝：
             {
               "summary": "一句對使用者拔河狀態的溫和、中肯、富含心理學同理心的簡短描述（繁體中文，限 60 字）",
               "strength": "客觀指出並肯定使用者目前保持良好掌控的優點，若無也請予以心理建設鼓勵（繁體中文，限 40 字）",
@@ -1132,15 +1265,13 @@
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;");
             
-            // 將 **粗體** 轉換為 <strong>
             safeText = safeText.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-            // 將換行符 \n 轉換成 <br>
             safeText = safeText.replace(/\n/g, "<br>");
             return safeText;
         }
 
         // ==========================================
-        // 🌟 核心對談助理：根據使用者提問給予個人化、無模板、條列式回覆
+        // 🌟 核心對談助理
         // ==========================================
         async function sendChatMessage() {
             const inputEl = document.getElementById('chat-input');
@@ -1154,7 +1285,6 @@
 
             const dimScores = getDimensionScores();
 
-            // 建構客製化背景，將全維度的數據與使用者的弱點傳達給模型
             let quizContext = "【填答者本次拔河測驗結果背景】\n";
             quizContext += `- 健康認知判斷度: ${globalResults.cognitiveScore}%\n`;
             quizContext += `- 行為依賴成癮度: ${globalResults.addictionScore}%\n`;
@@ -1171,7 +1301,7 @@
                           "2. 請根據提問內容，結合上方「填答者本次拔河測驗結果背景」的各項弱勢與得分，提供針對他本人的高度客製化、個人化退癮對策與平衡建議。\n" +
                           "3. 為了利於使用者在手機上快速理解、輕鬆掃描，您必須在回覆中加入「條列式（可以使用精緻 Emoji 引導點）」的方式呈現 2 到 3 個「阻力極小、今天就能立刻開始執行」的行為控制微習慣。\n" +
                           "4. 請一定要主動配合使用雙星號（**）來將重要的概念、行動步驟或關鍵字進行「加粗強調」。\n" +
-                          "5. 語氣溫暖同理，文風簡要清晰，整篇回覆請控制在 150-250 字之內。";
+                          "5. 語氣溫慢同理，文風簡要清晰，整篇回覆請控制在 150-250 字之內。";
 
             try {
                 const apiKey = "";
