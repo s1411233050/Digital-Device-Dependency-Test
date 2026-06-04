@@ -76,10 +76,11 @@
         }
 
         .card-transition {
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15), 
-                        box-shadow 0.3s ease, 
-                        border-color 0.3s ease, 
-                        background-color 0.3s ease;
+            transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                        box-shadow 0.25s ease, 
+                        border-color 0.25s ease, 
+                        background-color 0.25s ease,
+                        opacity 0.2s ease;
         }
 
         /* 隱藏滾動條 */
@@ -90,9 +91,17 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* 拖曳中卡片的縮放與樣式變動 */
+        .dragging-item {
+            opacity: 0.5;
+            transform: scale(0.96);
+            border-color: #6366f1 !important;
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.3) !important;
+        }
     </style>
 </head>
-<body class="text-slate-100 dark:text-slate-100 min-h-screen flex flex-col justify-between relative selection:bg-rose-500 selection:text-white dynamic-bg bg-animate animate-gradient-xy transition-colors duration-700">
+<body class="text-slate-100 dark:text-slate-100 min-h-screen flex flex-col justify-between relative selection:bg-rose-500 selection:text-white dynamic-bg bg-animate animate-gradient-xy transition-colors duration-700 overflow-y-auto">
 
     <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <div class="absolute top-1/4 left-1/4 w-80 h-80 rounded-full bg-blue-500/10 dark:bg-blue-500/15 blur-3xl animate-pulse-slow"></div>
@@ -117,10 +126,10 @@
         </button>
     </header>
 
-    <main class="w-full max-w-xl mx-auto px-4 flex-grow flex flex-col justify-center z-10 relative">
+    <main class="w-full max-w-xl mx-auto px-4 flex-grow flex flex-col justify-center z-10 relative pb-10">
         
         <!-- 1. 導言/封面畫面 -->
-        <div id="view-landing" class="view-panel flex flex-col justify-center items-center py-6 text-center space-y-6">
+        <div id="view-landing" class="view-panel flex flex-col justify-center items-center py-4 text-center space-y-6">
             <div class="space-y-3 animate-float">
                 <span class="inline-block px-4 py-1.5 text-xs font-bold rounded-full bg-gradient-to-r from-blue-500 to-rose-500 text-white shadow-md">
                     🚨 現代人「指尖依賴」大檢測
@@ -182,11 +191,17 @@
 
         <!-- 2. 測驗作答畫面 -->
         <div id="view-quiz" class="view-panel hidden py-2 flex flex-col space-y-4">
-            <!-- 進度條 -->
+            <!-- 進度條與說明按鈕 -->
             <div class="space-y-1.5">
                 <div class="flex justify-between items-center text-xs">
                     <span id="dimension-category" class="font-bold text-blue-500 dark:text-blue-400 uppercase tracking-widest">生活層面</span>
-                    <span id="progress-text" class="text-slate-500 dark:text-slate-400 font-bold">關卡 1 / 5</span>
+                    <div class="flex items-center space-x-2">
+                        <!-- 常駐的填答說明彈窗按鈕 -->
+                        <button onclick="openInstructionsModal()" class="text-[10px] bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-full border border-slate-200/60 dark:border-slate-700 font-bold transition flex items-center gap-1 shadow-sm">
+                            ❓ 填答說明
+                        </button>
+                        <span id="progress-text" class="text-slate-500 dark:text-slate-400 font-bold">關卡 1 / 5</span>
+                    </div>
                 </div>
                 <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden shadow-inner">
                     <div id="progress-bar" class="bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500 h-full transition-all duration-300" style="width: 20%"></div>
@@ -335,8 +350,8 @@
                     <div class="flex items-center space-x-2.5">
                         <span class="text-2xl animate-pulse">💬</span>
                         <div>
-                            <h4 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-white">AI 手機退癮顧問</h4>
-                            <p class="text-[9px] text-slate-400">關於「平衡手機使用、緩解依賴焦慮」之疑問，皆可向我諮詢</p>
+                            <h4 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-white">AI 手機退癮助手</h4>
+                            <p class="text-[9px] text-slate-400">將根據您的測驗結果與防線漏洞，提供一針見血的退癮對策</p>
                         </div>
                     </div>
                     <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
@@ -347,7 +362,7 @@
                     <div class="flex items-start gap-2.5">
                         <div class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]">🤖</div>
                         <div class="bg-indigo-100/80 dark:bg-indigo-950/40 text-slate-700 dark:text-slate-300 p-2.5 rounded-2xl rounded-tl-none text-[11px] max-w-[80%] leading-relaxed font-light">
-                            您好！我是您的專屬手機退癮顧問。檢視完您的拔河測驗結果後，您是否希望能更有效地掌握生活步調、擺脫無意識地指尖滑動？無論是「改善睡前使用習慣」或「降低手機焦慮」，都歡迎您在此與我聊聊。
+                            您好！我是您的退癮 AI。我已檢視完您本次的心理防線與依賴行為。您是否想知道如何針對您的弱勢項目進行調整？歡迎在此提問！
                         </div>
                     </div>
                 </div>
@@ -369,6 +384,57 @@
 
     </main>
 
+    <!-- 填答說明互動彈窗 (Modal) -->
+    <div id="instructions-modal" class="fixed inset-0 z-50 flex items-center justify-center px-4 bg-slate-950/60 backdrop-blur-sm hidden opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="glass-panel w-full max-w-sm p-6 rounded-3xl shadow-2xl relative border border-white/20 dark:border-slate-800/80 transform scale-90 transition-transform duration-300">
+            <button onclick="closeInstructionsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 p-1.5 rounded-full bg-slate-100/10 dark:bg-slate-800/50 hover:scale-105 transition-all focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            
+            <div class="text-center space-y-3">
+                <span class="inline-block p-3 rounded-2xl bg-indigo-500/20 text-indigo-400 text-2xl animate-bounce">
+                    💡
+                </span>
+                <h3 class="text-base font-extrabold text-slate-800 dark:text-white">
+                    測驗填答指引
+                </h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                    協助您在測驗中獲得最準確的心理防線解析
+                </p>
+            </div>
+
+            <div class="mt-5 space-y-4 text-left">
+                <div class="flex items-start space-x-3">
+                    <div class="bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-black shrink-0">1</div>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
+                        <strong>上下滑動與排序：</strong> 
+                        行為越偏向正常、自律者，請挪動到<span class="text-teal-500">最上方 💚</span>；越偏向失控、焦慮成癮者，請放在<span class="text-rose-500">最下方 💔</span>。
+                    </p>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <div class="bg-purple-500/20 text-purple-600 dark:text-purple-400 rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-black shrink-0">2</div>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
+                        <strong>「這符合我」判定：</strong> 
+                        排序的同時，請根據您目前的日常習慣，勾選符合您真實生活的項目，系統將依此計算您的「依賴度」。
+                    </p>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <div class="bg-rose-500/20 text-rose-600 dark:text-rose-400 rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-black shrink-0">3</div>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
+                        <strong>心理拔河解析：</strong> 
+                        完成 5 個層面後，將與滑世代群體進行戰況解析，呈現您的現實主導權防禦比例。
+                    </p>
+                </div>
+            </div>
+
+            <button onclick="closeInstructionsModal()" class="w-full mt-6 py-3 rounded-2xl font-bold bg-indigo-600 hover:bg-indigo-500 text-white text-xs shadow-lg active:scale-95 transition-all">
+                我知道了，繼續測驗 ➔
+            </button>
+        </div>
+    </div>
+
     <!-- 頁尾 -->
     <footer class="w-full max-w-xl mx-auto text-center py-6 text-[10px] text-slate-500 dark:text-slate-500 z-10 relative font-medium">
         <p>© 2026 滑世代的情緒防線專題小組. All rights reserved.</p>
@@ -379,7 +445,7 @@
         // ========================================================
         // 🚨 重要：請在此處填入您「全新部署」後的 Google Apps Script URL
         // ========================================================
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyaxEbK6BlAmjlSwQwjMWSRxzLAQqw8t-JwlDQbY3-3YUYHH53sEL7dRfE5qA7MD1xc/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6Aw4iliSCCAvUvkiSwAvYeO1WY4fiaNPZn7bC5rVjm2OYv3BI-DdLDajsFiCdz0kn/exec";
 
         // 深淺色主題切換
         function toggleTheme() {
@@ -479,145 +545,55 @@
         let currentDimension = 0;
         let quizState = {}; 
 
-        function startQuiz() {
-            document.getElementById('view-landing').classList.add('hidden');
-            document.getElementById('view-quiz').classList.remove('hidden');
-            
-            // 隨機打亂初始排列以檢測認知
-            quizData.forEach(dim => {
-                let shuffled = [...dim.items].sort(() => Math.random() - 0.5);
-                quizState[dim.id] = {
-                    shuffledItems: shuffled,
-                    checkedRealities: {}
-                };
-            });
-            
-            currentDimension = 0;
-            renderCurrentDimension();
-        }
-
-        function renderCurrentDimension() {
-            const data = quizData[currentDimension];
-            const state = quizState[data.id];
-
-            document.getElementById('dimension-category').textContent = data.title.split(' ')[1];
-            document.getElementById('progress-text').textContent = `關卡 ${currentDimension + 1} / 5`;
-            document.getElementById('progress-bar').style.width = `${(currentDimension + 1) * 20}%`;
-            
-            document.getElementById('dimension-title').textContent = data.title;
-            document.getElementById('dimension-desc').textContent = data.desc;
-            document.getElementById('dimension-illustration').textContent = data.illustration;
-
-            const container = document.getElementById('cards-container');
-            container.innerHTML = '';
-
-            state.shuffledItems.forEach((item, index) => {
-                const isChecked = state.checkedRealities[item.severity] || false;
-                const card = document.createElement('div');
-                card.className = `p-3 rounded-2xl border flex items-center justify-between space-x-3 card-transition relative z-10 shadow-sm ${isChecked ? 'border-rose-500 bg-rose-50/20 dark:bg-rose-950/10 ring-2 ring-rose-500/30' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 hover:border-blue-400 dark:hover:border-blue-900'}`;
-                card.setAttribute('draggable', 'true');
-                card.setAttribute('data-index', index);
-
-                card.addEventListener('dragstart', handleDragStart);
-                card.addEventListener('dragover', handleDragOver);
-                card.addEventListener('drop', handleDrop);
-                card.addEventListener('dragend', handleDragEnd);
-
-                card.innerHTML = `
-                    <div class="flex items-center space-x-1.5 shrink-0">
-                        <div class="cursor-grab text-slate-400 hover:text-slate-600 p-1 hidden sm:block">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </div>
-                        <div class="flex flex-col space-y-0.5">
-                            <button onclick="moveCard(${index}, 'up', event)" class="p-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition" ${index === 0 ? 'disabled style="opacity: 0.15;"' : ''}>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                            <button onclick="moveCard(${index}, 'down', event)" class="p-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition" ${index === 4 ? 'disabled style="opacity: 0.15;"' : ''}>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- 雙層相容圖像徽章架構 -->
-                    <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-slate-800 dark:to-slate-700 relative shadow-inner flex items-center justify-center text-lg">
-                        <span class="z-0 pointer-events-none text-xl">${item.emoji}</span>
-                        <img src="${item.img}" alt="插圖" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 z-10 pointer-events-none" onload="this.style.opacity='1';" onerror="this.remove();">
-                    </div>
-
-                    <!-- 行為題目描述 -->
-                    <div class="flex-grow text-[11px] sm:text-xs leading-relaxed text-slate-800 dark:text-slate-200 px-1 font-semibold">
-                        ${item.text}
-                    </div>
-
-                    <!-- 「這符合我」判定勾選按鈕 -->
-                    <button onclick="toggleReality(${item.severity}, event)" class="flex flex-col items-center justify-center shrink-0 p-1.5 rounded-xl border transition-all duration-300 focus:outline-none ${isChecked ? 'bg-gradient-to-r from-rose-500 to-pink-500 border-transparent text-white scale-105 shadow-md shadow-rose-500/20' : 'border-slate-200 dark:border-slate-700 hover:border-rose-400/50 text-slate-400'}" style="min-width: 58px; height: 50px;">
-                        <span class="text-xs">${isChecked ? '🔥' : '✨'}</span>
-                        <span class="text-[8px] font-bold mt-0.5 whitespace-nowrap">這符合我</span>
-                    </button>
-                `;
-                container.appendChild(card);
-            });
-
-            document.getElementById('btn-prev').disabled = currentDimension === 0;
-            document.getElementById('btn-prev').style.opacity = currentDimension === 0 ? '0.3' : '1';
-
-            if (currentDimension === quizData.length - 1) {
-                document.getElementById('btn-next').textContent = "結算拔河戰況 🎉";
-            } else {
-                document.getElementById('btn-next').textContent = "確認送出並前往下一關 ➔";
-            }
-        }
-
-        function moveCard(index, direction, event) {
-            event.stopPropagation();
-            const state = quizState[quizData[currentDimension].id];
-            const targetIndex = direction === 'up' ? index - 1 : index + 1;
-            
-            if (targetIndex >= 0 && targetIndex < 5) {
-                const temp = state.shuffledItems[index];
-                state.shuffledItems[index] = state.shuffledItems[targetIndex];
-                state.shuffledItems[targetIndex] = temp;
-                renderCurrentDimension();
-            }
-        }
-
-        function toggleReality(severity, event) {
-            event.stopPropagation();
-            const state = quizState[quizData[currentDimension].id];
-            state.checkedRealities[severity] = !state.checkedRealities[severity];
-            renderCurrentDimension();
-        }
-
+        // ==========================================
+        // 優化後的極流暢即時排序 (Dnd Flow Engine)
+        // ==========================================
         let dragSourceIndex = null;
+        let activeDraggedElement = null;
+
         function handleDragStart(e) {
-            dragSourceIndex = this.getAttribute('data-index');
-            this.style.opacity = '0.4';
+            dragSourceIndex = parseInt(this.getAttribute('data-index'));
+            activeDraggedElement = this;
+            this.classList.add('dragging-item');
             e.dataTransfer.effectAllowed = 'move';
         }
+
         function handleDragOver(e) {
-            if (e.preventDefault) e.preventDefault();
-            return false;
-        }
-        function handleDrop(e) {
-            e.stopPropagation();
-            const targetIndex = this.getAttribute('data-index');
-            if (dragSourceIndex !== null && dragSourceIndex !== targetIndex) {
+            e.preventDefault();
+            const dragOverIndex = parseInt(this.getAttribute('data-index'));
+            
+            if (dragSourceIndex !== null && dragSourceIndex !== dragOverIndex) {
                 const state = quizState[quizData[currentDimension].id];
                 const temp = state.shuffledItems[dragSourceIndex];
-                state.shuffledItems[dragSourceIndex] = state.shuffledItems[targetIndex];
-                state.shuffledItems[targetIndex] = temp;
+                state.shuffledItems[dragSourceIndex] = state.shuffledItems[dragOverIndex];
+                state.shuffledItems[dragOverIndex] = temp;
+                
+                dragSourceIndex = dragOverIndex;
                 renderCurrentDimension();
+
+                const newlyRenderedCards = document.querySelectorAll('#cards-container > div');
+                newlyRenderedCards.forEach(card => {
+                    if (parseInt(card.getAttribute('data-index')) === dragSourceIndex) {
+                        card.classList.add('dragging-item');
+                        activeDraggedElement = card;
+                    }
+                });
             }
             return false;
         }
+
+        function handleDrop(e) {
+            e.stopPropagation();
+            return false;
+        }
+
         function handleDragEnd() {
-            this.style.opacity = '1';
+            if (activeDraggedElement) {
+                activeDraggedElement.classList.remove('dragging-item');
+            }
+            dragSourceIndex = null;
+            activeDraggedElement = null;
+            renderCurrentDimension();
         }
 
         function prevDimension() {
@@ -642,10 +618,14 @@
             flexibilityScore: 0
         };
 
+        // ==========================================
+        // 精準心理數據計算模組
+        // ==========================================
         function calculateResults() {
             let totalCognitiveError = 0;
             let totalSeverityChecked = 0;
-            let maxPossibleSeveritySum = 75; // 5 dimensions * 15 (1+2+3+4+5)
+            const maxPossibleSeveritySum = 75; 
+            const maxPossibleCognitiveError = 60; 
 
             quizData.forEach(dim => {
                 const state = quizState[dim.id];
@@ -661,19 +641,14 @@
                 });
             });
 
-            // 認知精準度百分比
-            let rawCognitive = Math.round(((40 - totalCognitiveError) / 40) * 100);
-            globalResults.cognitiveScore = Math.max(15, Math.min(100, rawCognitive));
+            let rawCognitive = Math.round(((maxPossibleCognitiveError - totalCognitiveError) / maxPossibleCognitiveError) * 100);
+            globalResults.cognitiveScore = Math.max(0, Math.min(100, rawCognitive));
 
-            // 行為依賴度百分比
             let rawAddiction = Math.round((totalSeverityChecked / maxPossibleSeveritySum) * 100);
-            globalResults.addictionScore = Math.max(12, Math.min(100, rawAddiction));
-
-            // 心智彈性值：防守餘裕
+            globalResults.addictionScore = Math.max(0, Math.min(100, rawAddiction));
             globalResults.flexibilityScore = 100 - globalResults.addictionScore;
 
             renderResultsView();
-            // 計算完畢立即發送至 Google Sheets
             sendDataToGoogleSheets();
         }
 
@@ -689,11 +664,9 @@
             document.getElementById('stat-addiction').textContent = `${globalResults.addictionScore}%`;
             document.getElementById('stat-flexibility').textContent = `${globalResults.flexibilityScore}%`;
 
-            // 拔河紅線端點位移控制
             const nodeLeft = 15 + (globalResults.addictionScore / 100) * 70;
             ropeNode.style.left = `${nodeLeft}%`;
 
-            // 拔河勝負判定
             if (globalResults.addictionScore <= 35) {
                 verdictEl.innerHTML = `🛡️ 拔河結果：<span class="text-teal-500">【您成功堅守防線，奪回主導權！】</span>`;
                 percentEl.innerHTML = `在本次與數位依賴的拉鋸戰中，約有 <span class="text-teal-500 font-bold">22%</span> 的受測者能和您一樣，展現優異的心智控制力，並穩固現實生活的主導權。`;
@@ -712,25 +685,53 @@
         function getDimensionScores() {
             return quizData.map(dim => {
                 const state = quizState[dim.id];
+                
+                let dimCognitiveError = 0;
+                state.shuffledItems.forEach((item, index) => {
+                    const correctIndex = item.severity - 1;
+                    dimCognitiveError += Math.abs(index - correctIndex);
+                });
+                let cognitiveErrorPercent = (dimCognitiveError / 12) * 100;
+
                 let checkedSum = 0;
                 Object.keys(state.checkedRealities).forEach(sev => {
                     if (state.checkedRealities[sev]) {
                         checkedSum += parseInt(sev);
                     }
                 });
+                let behaviorPercent = (checkedSum / 15) * 100;
+                let finalScore = Math.round((behaviorPercent * 0.8) + (cognitiveErrorPercent * 0.2));
+
                 return {
                     id: dim.id,
                     name: dim.title.split(' ')[1],
-                    score: Math.max(12, Math.round((checkedSum / 15) * 100))
+                    score: Math.max(0, Math.min(100, finalScore))
                 };
             });
         }
 
-        // 核心上傳函數：利用 Blob + text/plain 發送，保證在任何瀏覽器下都能繞過 CORS 成功回傳至 GAS
+        function getUserCheckedBehaviorsSummary() {
+            let summary = [];
+            quizData.forEach(dim => {
+                const state = quizState[dim.id];
+                Object.keys(state.checkedRealities).forEach(sev => {
+                    if (state.checkedRealities[sev]) {
+                        const originalItem = dim.items.find(i => i.severity === parseInt(sev));
+                        if (originalItem) {
+                            summary.push(`[${dim.title.split(' ')[1]}] 等級 ${sev}: ${originalItem.text}`);
+                        }
+                    }
+                });
+            });
+            return summary.length > 0 ? summary.join('\n') : '無勾選任何失控行為。';
+        }
+
+        // ==========================================
+        // 🌟 核心數據打包：全維度詳盡數據傳送
+        // ==========================================
         function sendDataToGoogleSheets() {
             const syncBar = document.getElementById('sheets-sync-bar');
             
-            // 防呆機制修正：避免因為大量取代導致與自己設定好的網址匹配
             if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("YOUR_GOOGLE_APPS") || GOOGLE_SCRIPT_URL === "") {
                 syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-amber-500/10 text-amber-500 border border-amber-500/20";
                 syncBar.innerHTML = `⚠️ 尚未設定 Google 試算表串接網址，數據僅在本地端運作。`;
@@ -738,23 +739,40 @@
             }
 
             const dimScores = getDimensionScores();
-            
-            // 包裝完整數據封包
+            const fallbackAnalysis = getFallbackData();
+
+            // 建立完整的 JSON 扁平化 Payload 物件
             const payload = {
                 timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
-                cognitiveScore: globalResults.cognitiveScore,
-                addictionScore: globalResults.addictionScore,
-                flexibilityScore: globalResults.flexibilityScore,
-                emotion: dimScores.find(d => d.id === 'emotion')?.score || 0,
-                selfControl: dimScores.find(d => d.id === 'selfControl')?.score || 0,
-                dailyLife: dimScores.find(d => d.id === 'dailyLife')?.score || 0,
-                dependency: dimScores.find(d => d.id === 'dependency')?.score || 0,
-                socialImpact: dimScores.find(d => d.id === 'socialImpact')?.score || 0
+                cognitiveScore: globalResults.cognitiveScore + "%",
+                addictionScore: globalResults.addictionScore + "%",
+                flexibilityScore: globalResults.flexibilityScore + "%",
+                verdict: document.getElementById('tug-verdict').innerText.replace(/[\n\r]+/g, ' '),
+                verdictDescription: document.getElementById('tug-percentage-stat').innerText.replace(/[\n\r]+/g, ' '),
+                
+                emotionScore: (dimScores.find(d => d.id === 'emotion')?.score || 0) + "%",
+                selfControlScore: (dimScores.find(d => d.id === 'selfControl')?.score || 0) + "%",
+                dailyLifeScore: (dimScores.find(d => d.id === 'dailyLife')?.score || 0) + "%",
+                dependencyScore: (dimScores.find(d => d.id === 'dependency')?.score || 0) + "%",
+                socialImpactScore: (dimScores.find(d => d.id === 'socialImpact')?.score || 0) + "%",
+                
+                emotionOrder: quizState['emotion'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
+                selfControlOrder: quizState['selfControl'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
+                dailyLifeOrder: quizState['dailyLife'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
+                dependencyOrder: quizState['dependency'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
+                socialImpactOrder: quizState['socialImpact'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
+                
+                emotionChecked: Object.keys(quizState['emotion'].checkedRealities).filter(k => quizState['emotion'].checkedRealities[k]).map(k => `等${k}`).join(', ') || '無',
+                selfControlChecked: Object.keys(quizState['selfControl'].checkedRealities).filter(k => quizState['selfControl'].checkedRealities[k]).map(k => `等${k}`).join(', ') || '無',
+                dailyLifeChecked: Object.keys(quizState['dailyLife'].checkedRealities).filter(k => quizState['dailyLife'].checkedRealities[k]).map(k => `等${k}`).join(', ') || '無',
+                dependencyChecked: Object.keys(quizState['dependency'].checkedRealities).filter(k => quizState['dependency'].checkedRealities[k]).map(k => `等${k}`).join(', ') || '無',
+                socialImpactChecked: Object.keys(quizState['socialImpact'].checkedRealities).filter(k => quizState['socialImpact'].checkedRealities[k]).map(k => `等${k}`).join(', ') || '無',
+
+                overallAnalysis: fallbackAnalysis.summary
             };
 
             const payloadString = JSON.stringify(payload);
 
-            // 優先嘗試最穩定的 navigator.sendBeacon (背景非同步發送，能完美避開 CORS)
             let beaconSent = false;
             if (navigator.sendBeacon) {
                 const blob = new Blob([payloadString], { type: 'text/plain' });
@@ -763,23 +781,22 @@
 
             if (beaconSent) {
                 syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20";
-                syncBar.innerHTML = `✨ 數據已排程同步至雲端試算表！感謝您的協助。`;
+                syncBar.innerHTML = `✨ 詳細數據及作答軌跡已同步回傳雲端試算表！`;
             } else {
-                // 如果不支援 Beacon，則使用 Fetch 的 POST fallback 機制
                 fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // 避開跨網域限制
+                    mode: 'no-cors',
                     headers: {
-                        'Content-Type': 'text/plain' // 使用 text/plain 避免觸發預檢請求 (Preflight)
+                        'Content-Type': 'text/plain'
                     },
                     body: payloadString
                 })
                 .then(() => {
                     syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20";
-                    syncBar.innerHTML = `✨ 數據已成功同步至雲端 Google Sheets！感謝您的協助。`;
+                    syncBar.innerHTML = `✨ 詳細數據及作答軌跡已成功同步至雲端試算表！`;
                 })
                 .catch(error => {
-                    console.error("雲端上傳錯誤:", error);
+                    console.error("雲端同步失敗:", error);
                     syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-rose-500/10 text-rose-500 border border-rose-500/20";
                     syncBar.innerHTML = `❌ 雲端同步失敗。請確認網路狀態後重新整理頁面。`;
                 });
@@ -800,7 +817,6 @@
             const gridColor = isDark ? '#1e293b' : '#cbd5e1';
             const labelColor = isDark ? '#94a3b8' : '#475569';
 
-            // 繪製骨架圈
             const levels = [0.2, 0.4, 0.6, 0.8, 1];
             levels.forEach(level => {
                 const levelRadius = r * level;
@@ -819,7 +835,6 @@
                 svg.appendChild(polygon);
             });
 
-            // 繪製軸線與標籤
             dimScores.forEach((dim, i) => {
                 const angle = (i * 2 * Math.PI) / totalPoints - Math.PI / 2;
                 
@@ -847,7 +862,6 @@
                 svg.appendChild(text);
             });
 
-            // 繪製使用者多維度覆蓋區
             let userPoints = [];
             dimScores.forEach((dim, i) => {
                 const angle = (i * 2 * Math.PI) / totalPoints - Math.PI / 2;
@@ -864,7 +878,6 @@
             userPolygon.setAttribute('stroke-width', '2.5');
             svg.appendChild(userPolygon);
 
-            // 互動端點
             dimScores.forEach((dim, i) => {
                 const angle = (i * 2 * Math.PI) / totalPoints - Math.PI / 2;
                 const distance = r * (dim.score / 100);
@@ -893,11 +906,12 @@
             feedbackBox.classList.remove('hidden');
 
             const state = quizState[dimId];
-            let checkedSum = 0;
+            const allScores = getDimensionScores();
+            const currentDimScore = allScores.find(d => d.id === dimId)?.score || 0;
+
             const checkedTexts = [];
             Object.keys(state.checkedRealities).forEach(sev => {
                 if (state.checkedRealities[sev]) {
-                    checkedSum += parseInt(sev);
                     const originalItem = quizData.find(d => d.id === dimId).items.find(i => i.severity === parseInt(sev));
                     if (originalItem) checkedTexts.push(originalItem.text);
                 }
@@ -906,18 +920,18 @@
             const dimTitle = quizData.find(d => d.id === dimId).title;
             let advice = "";
 
-            if (checkedSum === 0) {
+            if (currentDimScore <= 15) {
                 advice = "💚 指標優異。您在此維度並無明顯的依賴現象，手機能發揮良性的工具輔助效能，掌控度極佳。";
-            } else if (checkedSum <= 4) {
+            } else if (currentDimScore <= 40) {
                 advice = "💛 輕度影響。您僅在感到無聊或疲憊時，會短暫將注意力轉向螢幕，主控權依然在您手中。";
-            } else if (checkedSum <= 9) {
+            } else if (currentDimScore <= 70) {
                 advice = "🧡 中度警報。您的行為防守線已向數位偏斜，螢幕時間逐漸干擾您的現實作息，建議設置使用限制。";
             } else {
                 advice = "❤️ 重度失控。您在該層面的心智精力受到深度支配，生活效能與專注力明顯受干擾，建議採取實體隔離。";
             }
 
             let detailHtml = `
-                <p class="font-bold text-slate-800 dark:text-white mb-1">🔍 ${dimTitle} 解析：</p>
+                <p class="font-bold text-slate-800 dark:text-white mb-1">🔍 ${dimTitle} 解析 (當前得分: ${currentDimScore}%)：</p>
                 <p class="mb-2 text-slate-600 dark:text-slate-300 font-light">${advice}</p>
             `;
 
@@ -975,7 +989,7 @@
                     ${isLoading ? `
                         <div class="flex items-center space-x-2 text-[10px] text-purple-600 dark:text-purple-400 bg-purple-100/50 dark:bg-purple-950/20 p-2.5 rounded-xl border border-purple-200 dark:border-purple-900/40 animate-pulse font-bold justify-center">
                             <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-ping"></span>
-                            <span>顧問正針對您的心智數據撰寫個人防護報告，請稍候...</span>
+                            <span>AI 正針對您的心智數據撰寫個人防護報告，請稍候...</span>
                         </div>
                     ` : ''}
 
@@ -1007,7 +1021,7 @@
                         </p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                             ${data.tactics.map((tactic, i) => `
-                                <div class="p-3 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-900 flex items-start space-x-2.5 hover:border-indigo-400 transition-all duration-300 shadow-sm">
+                                <div class="p-3 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200/50 dark:border-slate-900 flex items-start space-x-2.5 hover:border-indigo-400 transition-all duration-300 shadow-sm">
                                     <span class="bg-indigo-100 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 rounded-xl w-5 h-5 flex items-center justify-center text-[10px] font-black shrink-0 border border-indigo-200 dark:border-indigo-500/20 shadow-sm">
                                         ${i+1}
                                     </span>
@@ -1041,7 +1055,7 @@
                 userReport += `● ${dim.title}: 勾選的依賴行為包括: ${checked.length > 0 ? checked.join('；') : '無特別失控依賴行為，狀態健康'}\n`;
             });
 
-            const systemPrompt = `您是一位專業、溫和、且極具耐心的心理諮商顧問。
+            const systemPrompt = `您是一位專業、溫和、且極具耐心的心理諮商 AI。
             請依據使用者的作答資料，用清晰、好理解且充滿同理心的正式口吻（使用「您」）撰寫個人分析報告。
             您必須嚴格遵守以下 JSON 格式回覆，絕對不能包含 any \`\`\`json 等 Markdown 包裝：
             {
@@ -1108,6 +1122,26 @@
             }
         }
 
+        // ==========================================
+        // 輕量級即時 Markdown 格式解析器
+        // ==========================================
+        function formatMarkdown(text) {
+            if (!text) return '';
+            let safeText = text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            
+            // 將 **粗體** 轉換為 <strong>
+            safeText = safeText.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+            // 將換行符 \n 轉換成 <br>
+            safeText = safeText.replace(/\n/g, "<br>");
+            return safeText;
+        }
+
+        // ==========================================
+        // 🌟 核心對談助理：根據使用者提問給予個人化、無模板、條列式回覆
+        // ==========================================
         async function sendChatMessage() {
             const inputEl = document.getElementById('chat-input');
             const messageText = inputEl.value.trim();
@@ -1116,12 +1150,28 @@
             inputEl.value = '';
             appendChatMessage('user', messageText);
 
-            const coachMsgId = appendChatMessage('ai', '思考中，請容我為您整理建議...');
+            const coachMsgId = appendChatMessage('ai', '正在為您量身規劃退癮方針...');
 
-            let quizContext = "【使用者諮商背景】\n";
-            quizContext += `心智掌控度: ${globalResults.cognitiveScore}%, 手機依賴度: ${globalResults.addictionScore}%\n`;
-            quizContext += `使用者目前面臨的困境與問題：${messageText}\n\n`;
-            quizContext += "請使用臨床心理諮商風格，提供客觀、具同理心且具體可行的引導。使用「您」稱呼使用者。請控制在三句話內，並提供一個日常即可輕易執行的小技巧，幫助使用者逐步重拾生活平衡。";
+            const dimScores = getDimensionScores();
+
+            // 建構客製化背景，將全維度的數據與使用者的弱點傳達給模型
+            let quizContext = "【填答者本次拔河測驗結果背景】\n";
+            quizContext += `- 健康認知判斷度: ${globalResults.cognitiveScore}%\n`;
+            quizContext += `- 行為依賴成癮度: ${globalResults.addictionScore}%\n`;
+            quizContext += `- 心智彈性防線餘裕: ${globalResults.flexibilityScore}%\n`;
+            quizContext += `- 各維度量化得分 (得分越高表示在該層面依賴度越重):\n`;
+            dimScores.forEach(d => {
+                quizContext += `  * ${d.name}: ${d.score}%\n`;
+            });
+            quizContext += `- 使用者在測驗中勾選符合生活現狀的失控行為包括:\n${getUserCheckedBehaviorsSummary()}\n\n`;
+            quizContext += `- 填答者當前具體的疑惑/提問: "${messageText}"\n\n`;
+            
+            quizContext += "【回覆規則限制】：\n" +
+                          "1. 請不要使用制式、死板、格式化的模板（千萬不要有重複的 '現況剖析'、'行為對策'、'日常練習' 標題來束縛您的文字），而是要用流暢且自然的專業諮商口吻進行一對一解答。\n" +
+                          "2. 請根據提問內容，結合上方「填答者本次拔河測驗結果背景」的各項弱勢與得分，提供針對他本人的高度客製化、個人化退癮對策與平衡建議。\n" +
+                          "3. 為了利於使用者在手機上快速理解、輕鬆掃描，您必須在回覆中加入「條列式（可以使用精緻 Emoji 引導點）」的方式呈現 2 到 3 個「阻力極小、今天就能立刻開始執行」的行為控制微習慣。\n" +
+                          "4. 請一定要主動配合使用雙星號（**）來將重要的概念、行動步驟或關鍵字進行「加粗強調」。\n" +
+                          "5. 語氣溫暖同理，文風簡要清晰，整篇回覆請控制在 150-250 字之內。";
 
             try {
                 const apiKey = "";
@@ -1130,7 +1180,7 @@
                 const payload = {
                     contents: [{ parts: [{ text: quizContext }] }],
                     systemInstruction: {
-                        parts: [{ text: "您是溫和、睿智且客觀的手機退癮顧問。請用科學、行為心理學角度對答。語氣清晰、溫柔而精準，善用「您」字，給予具體指引與心理支持，避免空洞和流俗口語。" }]
+                        parts: [{ text: "您是溫和、睿智且高度個人化的手機退癮 AI。您專門為使用者提供一針見血、具備行動心理學基礎、條列式且重點加粗的簡短答覆。請嚴格遵循不要使用僵化制式格式的準則。" }]
                     }
                 };
 
@@ -1141,12 +1191,12 @@
                 });
 
                 const result = await response.json();
-                const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "抱歉，目前網路連線稍有遲滯。但請記得，最立竿見影的依賴緩解方案，就是立刻將螢幕朝下扣放，閉上雙眼進行三次深慢呼吸，短暫脫離虛擬刺激。";
+                const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "📌 **現況剖析**：連線暫時發生波動，但這也是練習放下螢幕的絕佳契機。<br>💡 **核心建議**：<br>• **手機反扣**：現在立刻將手機翻面扣在桌上。<br>• **視線隔離**：將充電座移至床頭櫃之外。<br>🎯 **今日練習**：現在閉上雙眼，深呼吸 3 次，帶領思緒重回當下實體生活。";
                 
                 updateChatMessage(coachMsgId, responseText);
             } catch (error) {
                 console.error("Chatbot Error:", error);
-                updateChatMessage(coachMsgId, "顧問目前連線不穩定，但建議您此時將手機放至伸手不可及之處，讓心智在純粹現實的維度中沉澱一分鐘，這對重獲主控權非常重要。");
+                updateChatMessage(coachMsgId, "分析暫時中斷，這或許正是個極好的藉口。現在建議您嘗試 **「一臂距離」限制**：直接將手機放到雙手伸直也拿不到的角落，並閉上眼進行 **幾次慢呼吸**，重獲此時此刻的身心主控權。");
             }
         }
 
@@ -1159,15 +1209,15 @@
             if (sender === 'user') {
                 div.innerHTML = `
                     <div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none text-[11px] max-w-[80%] leading-relaxed font-semibold">
-                        ${text}
+                        ${formatMarkdown(text)}
                     </div>
                     <div class="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center text-[10px]">👤</div>
                 `;
             } else {
                 div.innerHTML = `
                     <div class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]">🤖</div>
-                    <div id="${msgId}" class="bg-indigo-100/80 dark:bg-indigo-950/40 text-slate-700 dark:text-slate-300 p-2.5 rounded-2xl rounded-tl-none text-[11px] max-w-[80%] leading-relaxed font-medium">
-                        ${text}
+                    <div id="${msgId}" class="bg-indigo-100/80 dark:bg-indigo-950/40 text-slate-700 dark:text-slate-300 p-2.5 rounded-2xl rounded-tl-none text-[11px] max-w-[80%] leading-relaxed font-light">
+                        ${formatMarkdown(text)}
                     </div>
                 `;
             }
@@ -1179,11 +1229,13 @@
         function updateChatMessage(id, newText) {
             const el = document.getElementById(id);
             if (el) {
-                el.textContent = '';
+                el.innerHTML = '';
                 let i = 0;
+                let accumulated = '';
                 function type() {
                     if (i < newText.length) {
-                        el.textContent += newText.charAt(i);
+                        accumulated += newText.charAt(i);
+                        el.innerHTML = formatMarkdown(accumulated);
                         i++;
                         setTimeout(type, 15);
                         const chatHistory = document.getElementById('chat-history');
@@ -1203,7 +1255,7 @@
                 <div class="flex items-start gap-2.5">
                     <div class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]">🤖</div>
                     <div class="bg-indigo-100/80 dark:bg-indigo-950/40 text-slate-700 dark:text-slate-300 p-2.5 rounded-2xl rounded-tl-none text-[11px] max-w-[80%] leading-relaxed font-light">
-                        您好！我是您的專屬手機退癮顧問。檢視完您的拔河測驗結果後，您是否希望能更有效地掌握生活步調、擺脫無意識地指尖滑動？無論是「改善睡前使用習慣」或「降低手機焦慮」，都歡迎您在此與我聊聊。
+                        您好！我是您的退癮 AI。我已檢視完您本次的心理防線與依賴行為。您是否想知道如何針對您的弱勢項目進行調整？歡迎在此提問！
                     </div>
                 </div>
             `;
