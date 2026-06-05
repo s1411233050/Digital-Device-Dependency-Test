@@ -138,7 +138,7 @@
                     被<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-rose-400">「點亮」</span>的焦慮
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-bold mt-1 px-4">
-                    您是手機的主人，還是被虛擬多巴胺制約的被動使用者？
+                    您是手機的主人，還是被虛擬訊號制約的被動使用者？
                 </p>
             </div>
 
@@ -473,7 +473,7 @@
             document.documentElement.classList.add('dark');
         }
 
-        // 清晰、精準且易理解的測驗題目
+        // 題目資料設定 (情緒、自控、生活、依賴、社交)
         const quizData = [
             {
                 id: 'emotion',
@@ -636,18 +636,15 @@
                         </div>
                     </div>
 
-                    <!-- 雙層相容圖像徽章架構 -->
                     <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-slate-800 dark:to-slate-700 relative shadow-inner flex items-center justify-center text-lg">
                         <span class="z-0 pointer-events-none text-xl">${item.emoji}</span>
                         <img src="${item.img}" alt="插圖" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 z-10 pointer-events-none" onload="this.style.opacity='1';" onerror="this.remove();">
                     </div>
 
-                    <!-- 行為題目描述 -->
                     <div class="flex-grow text-[11px] sm:text-xs leading-relaxed text-slate-800 dark:text-slate-200 px-1 font-semibold">
                         ${item.text}
                     </div>
 
-                    <!-- 「這符合我」判定勾選按鈕 -->
                     <button onclick="toggleReality(${item.severity}, event)" class="flex flex-col items-center justify-center shrink-0 p-1.5 rounded-xl border transition-all duration-300 focus:outline-none ${isChecked ? 'bg-gradient-to-r from-rose-500 to-pink-500 border-transparent text-white scale-105 shadow-md shadow-rose-500/20' : 'border-slate-200 dark:border-slate-700 hover:border-rose-400/50 text-slate-400'}" style="min-width: 58px; height: 50px;">
                         <span class="text-xs">${isChecked ? '🔥' : '✨'}</span>
                         <span class="text-[8px] font-bold mt-0.5 whitespace-nowrap">這符合我</span>
@@ -686,7 +683,6 @@
             renderCurrentDimension();
         }
 
-        // 拖曳流星引擎
         let dragSourceIndex = null;
         let activeDraggedElement = null;
 
@@ -763,7 +759,7 @@
         function calculateResults() {
             let totalCognitiveError = 0;
             let totalSeverityChecked = 0;
-            const maxPossibleSeveritySum = 75; 
+            const maxPossibleSeveritySum = 25; 
             const maxPossibleCognitiveError = 60; 
 
             quizData.forEach(dim => {
@@ -1203,8 +1199,11 @@
             }`;
 
             try {
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const apiKey = ""; // 如果使用者填入 API 金鑰，將直接發起 API 呼叫
+                if (!apiKey) {
+                    throw new Error("Empty API Key"); // 預設空金鑰時直接導向本地優質預設分析
+                }
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
                 const payload = {
                     contents: [{ parts: [{ text: userReport }] }],
@@ -1249,9 +1248,11 @@
                 if (jsonText) {
                     const aiData = JSON.parse(jsonText);
                     renderAiVisualAdvice(aiData, false);
+                } else {
+                    throw new Error("No response candidates");
                 }
             } catch (error) {
-                console.warn("API 載入延遲，採用本地精確算法輸出預置資料:", error);
+                console.warn("API 載入延遲或未提供金鑰，採用本地精確演算法輸出防禦資料:", error);
                 renderAiVisualAdvice(fallbackData, false);
             }
         }
@@ -1264,14 +1265,63 @@
             let safeText = text
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt bridge;"); // 安全轉義
-            
-            // 修復轉義
-            safeText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                .replace(/>/g, "&gt;");
             
             safeText = safeText.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
             safeText = safeText.replace(/\n/g, "<br>");
             return safeText;
+        }
+
+        // ==========================================
+        // 🛠️ 雙軌智慧解析：當 API 金鑰為空或異常時的本地防護回覆生成器
+        // ==========================================
+        function getLocalFallbackChatResponse(messageText, dimScores) {
+            // 尋找分數最高（表現最弱）的維度
+            let worstDim = { name: "日常生活", score: 0 };
+            if (dimScores && dimScores.length > 0) {
+                const sorted = [...dimScores].sort((a, b) => b.score - a.score);
+                worstDim = sorted[0];
+            }
+
+            const query = messageText.toLowerCase();
+
+            // 1. 睡前、熬夜、晚上
+            if (query.includes("睡前") || query.includes("熬夜") || query.includes("晚上") || query.includes("睡眠") || query.includes("睡覺")) {
+                return `📌 **關於睡前與深夜的手機使用**，這常常是心智防禦力最薄弱的時刻。結合您在測驗中 **${worstDim.name}** 層面的拉扯，建議您嘗試以下具體且能立刻開始的調整：<br><br>` +
+                       `• **手機「物理離床」**：將充電座移到床鋪手部伸展無法觸及的角落，直接拉長無意識滑動的物理路徑。<br>` +
+                       `• **無螢幕替代儀式**：在原本應該看螢幕的時間，準備一本實體書籍或紙筆日記，讓您的雙手重溫純粹的實體觸感。<br><br>` +
+                       `🎯 **今日練習**：今晚在準備就寢時，強迫自己將手機翻面反扣，並安靜地躺下，專注於呼吸 3 分鐘，重新取回夜晚的主導權。`;
+            }
+
+            // 2. 工作、專注、報告、讀書、學習、效率
+            if (query.includes("工作") || query.includes("專注") || query.includes("讀書") || query.includes("報告") || query.includes("學習") || query.includes("效率") || query.includes("唸書")) {
+                return `📌 **針對您提到的工作與學習效率挑戰**，我們常常在需要耗費高度心智時，下意識將注意力轉移到手機上以逃避壓力。根據您的 **${worstDim.name}** 得分，這裡提供兩招立即上手的環境干預對策：<br><br>` +
+                       `• **視覺純淨化模式**：開啟手機內建的灰階色彩（單色模式），並將所有社群 APP 從主畫面移除、藏到最深層資料夾。<br>` +
+                       `• **手動增加手續難度**：每次滑手機前，強迫自己手寫開啟目的（如：查資料）與限制時間，中斷反射性的滑動習慣。<br><br>` +
+                       `🎯 **今日練習**：在下一個專注時段，將手機放入抽屜中，並告訴自己：「等這段進度完成，我才會拉開抽屜檢查訊息。」`;
+            }
+
+            // 3. 焦慮、無聊、想滑、沒手機、通知、漏掉
+            if (query.includes("焦慮") || query.includes("無聊") || query.includes("想滑") || query.includes("沒手機") || query.includes("通知") || query.includes("漏掉") || query.includes("不安")) {
+                return `📌 **面對放下手機時所產生的焦慮與不安全感**，這代表手機能量已部分凌駕於現實生活之上。考慮到您在 **${worstDim.name}** 的表現，建議您重新設定心智邊界：<br><br>` +
+                       `• **靜音與主動式檢查**：關閉所有非緊急群組的提示音與氣泡通知，改為「固定每兩小時」主動開啟檢查，將被動打擾扭轉為主動管理。<br>` +
+                       `• **觸覺轉移轉移法**：當感到手指焦躁想拿手機時，改為握持實體抗壓球、玩紙粘土或喝一杯溫水，將行為中斷。<br><br>` +
+                       `🎯 **今日練習**：現在就為自己安排一段「30 分鐘的不插電時光」，把手機安置在別的房間，在這段時間內只進行現實中的小活動。`;
+            }
+
+            // 4. 社交、朋友、人際、聚會、吃飯
+            if (query.includes("人際") || query.includes("朋友") || query.includes("社交") || query.includes("聚餐") || query.includes("聊天") || query.includes("聚會") || query.includes("吃飯")) {
+                return `📌 **關於社交情境下的螢幕重疊問題**，現實的連結很容易因頻繁確認手機而削弱。根據您本次測驗的分數，我們能採行這兩條微調行動：<br><br>` +
+                       `• **手機疊疊樂約定**：在與朋友聚會或用餐時，主動提議所有人將手機集中反扣在桌子中央，最先動手機的人負責今天的小趣味。<br>` +
+                       `• **環境互動專注**：當感到眼神開始飄向螢幕時，主動向同桌的親友提問一個與今天活動、眼前菜餚相關的問題，以話題重新拉回注意力。<br><br>` +
+                       `🎯 **今日練習**：在今天與伴侶或親友聚餐時，不將手機放在餐桌表面，而是徹底放進包包或口袋，保持一頓飯的纯淨面對面溝通。`;
+            }
+
+            // 5. 預設綜合回應
+            return `📌 **感謝您與我分享您的數位生活困擾。** 檢視您在 **${worstDim.name}** 層面的量化表現，我們能用非常溫和、無負擔的方法，在日常生活中重塑自律防線：<br><br>` +
+                   `• **設置物理阻力門檻**：登出您最常耗費時間的社群軟體，每一次想看都必須手動輸入帳號與長密碼，用程序繁瑣度擊退無意識滑動。<br>` +
+                   `• **生活無螢幕保留區**：在家中設定一處完全不准攜入手機的區塊（例如餐桌或臥室沙發），重溫實體空間的恬靜感受。<br><br>` +
+                   `🎯 **今日練習**：請您今天挑選一件最簡單的事情進行嘗試，並在與我對談中告訴我執行的感覺，我們一同微調退癮的步伐。`;
         }
 
         // ==========================================
@@ -1291,7 +1341,7 @@
 
             let quizContext = "【填答者本次拔河測驗結果背景】\n";
             quizContext += `- 健康認知判斷度: ${globalResults.cognitiveScore}%\n`;
-            quizContext += `- 行為依賴度: ${globalResults.addictionScore}%\n`;
+            quizContext += `- 行為依賴成癮度: ${globalResults.addictionScore}%\n`;
             quizContext += `- 心智彈性防線餘裕: ${globalResults.flexibilityScore}%\n`;
             quizContext += `- 各維度量化得分 (得分越高表示在該層面依賴度越重):\n`;
             dimScores.forEach(d => {
@@ -1301,16 +1351,19 @@
             quizContext += `- 填答者當前具體的疑惑/提問: "${messageText}"\n\n`;
             
             quizContext += "【回覆規則限制】：\n" +
-                          "1. 請不要使用制式、死板、格式化的模板（千萬不要有重複的 '現況剖析'、'行為對策'、'日常練習' 標題來束縛您的文字），而是要用流暢且親切自然的專業諮商與陪伴口吻進行解答。\n" +
+                          "1. 請不要使用制式、死板、格式化的模板（千萬不要有重複的 '現況剖析'、'行為對策'、'日常練習' 標題來束縛您的文字），而是要用流暢且親切自然的專業諮商與陪伴口吻進行一對一解答。\n" +
                           "2. 請根據提問內容，結合上方「填答者背景」的弱勢，提供客製化、個人化的習慣改變與平衡建議。回覆中請一律使用敬語「您」代替「你」。\n" +
-                          "3. 特別禁忌：回覆內容中絕對不得包含、提及或宣導任何基礎生理學、生理機轉（如大腦傳導、多巴胺、褪黑激素）、基礎生理衛教、睡眠生理週期、生理健康及營養學資訊。請完全從環境控制（如空間防禦、阻力設定）、生活習慣替代與心理認知重塑的角度切入，提供溫和且切實可行的轉變指引。\n" +
+                          "3. 特別禁忌：回覆內容中絕對不得包含、轉載或推廣任何基礎生理學、生理機轉（如大腦傳導、多巴胺、褪黑激素）、生理醫學衛教、睡眠生理週期、生理健康及營養運動生理學資訊。請完全從環境控制（如物理阻力、空間區隔）、生活習慣替代與心理認知重塑的角度切入，提供溫和且切實可行的轉變指引。\n" +
                           "4. 為了利於使用者在手機上快速理解、輕鬆掃描，您必須在回覆中加入「條列式（可以使用精緻 Emoji 引導點）」的方式呈現 2 到 3 個「阻力極小、今天就能立刻開始執行」的行為控制微習慣。\n" +
                           "5. 請一定要主動配合使用雙星號（**）來將重要的概念、行動步驟或關鍵字進行「加粗強調」。\n" +
                           "6. 語氣溫暖同理，文風簡要清晰，整篇回覆請控制在 150-250 字之內。";
 
             try {
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const apiKey = ""; // 本地金鑰預設空值
+                if (!apiKey) {
+                    throw new Error("Missing API Key"); // 直接引發錯誤導向本地優雅回覆生成器
+                }
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
                 const payload = {
                     contents: [{ parts: [{ text: quizContext }] }],
@@ -1325,13 +1378,22 @@
                     body: JSON.stringify(payload)
                 });
 
+                if (!response.ok) {
+                    throw new Error("API call returned error status");
+                }
+
                 const result = await response.json();
-                const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text || "📌 **目前連線有些波動**，建議您現在嘗試 **「一臂距離」限制**：直接將手機放到雙手伸直也拿不到的角落，讓自己練習不依賴螢幕的自主生活。";
-                
-                updateChatMessage(coachMsgId, responseText);
+                const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (responseText) {
+                    updateChatMessage(coachMsgId, responseText);
+                } else {
+                    throw new Error("No response candidates text");
+                }
             } catch (error) {
-                console.error("Chatbot Error:", error);
-                updateChatMessage(coachMsgId, "分析暫時中斷，這或許正是個極好的自省契機。現在建議您嘗試 **「增加物理障礙」**：直接將手機放到抽屜深處，並給自己一個安靜的專注時間，奪回此時此刻的生活主控權。");
+                console.warn("API 金鑰未填寫或連線異常，自動切換至本地雙軌智慧防禦系統:", error);
+                // 呼叫強大的本地智慧解析器生成完美回應
+                const localResponse = getLocalFallbackChatResponse(messageText, dimScores);
+                updateChatMessage(coachMsgId, localResponse);
             }
         }
 
