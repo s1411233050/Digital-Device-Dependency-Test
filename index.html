@@ -138,7 +138,7 @@
                     被<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-rose-400">「點亮」</span>的焦慮
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-bold mt-1 px-4">
-                    您是手機的主人，還是被虛擬訊號制約的被動使用者？
+                    您是手機的主人，還是被虛擬多巴胺制約的被動使用者？
                 </p>
             </div>
 
@@ -224,7 +224,7 @@
                 <span class="inline-flex items-center text-[10px] font-bold text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-800/40 px-3.5 py-1 rounded-full border border-slate-200/50 dark:border-slate-700/50 shadow-sm">
                     <span class="w-2 h-2 rounded-full bg-teal-400 mr-1.5 animate-pulse"></span>最正常、低依賴 (排最上面 💚)
                     <span class="mx-3 text-slate-300 dark:text-slate-600">|</span>
-                    <span class="w-2 h-2 rounded-full bg-rose-400 mr-1.5 animate-pulse"></span>最嚴重、高依賴 (排最下面 💔)
+                    <span class="w-2 h-2 rounded-full bg-rose-400 mr-1.5 animate-pulse"></span>最嚴重、高依賴 (排最下方 💔)
                 </span>
             </div>
 
@@ -362,7 +362,7 @@
                     <div class="flex items-start gap-2.5">
                         <div class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]">🤖</div>
                         <div class="bg-indigo-100/80 dark:bg-indigo-950/40 text-slate-700 dark:text-slate-300 p-2.5 rounded-2xl rounded-tl-none text-[11px] max-w-[80%] leading-relaxed font-light">
-                            您好！我是您的 AI 手機退癮助手。我已細心為您整理好本次測驗中呈現的心理防線與日常手機依賴狀態。您可以隨時與我聊聊，例如問我如何面對睡前滑手機的挑戰，讓我們一起找到溫和且切實可行的調整步調！
+                            您好！我是您的 **AI 手機退癮助手**。我已細心為您整理好本次測驗中呈現的心理防線與日常手機依賴狀態。您可以隨時與我聊聊，例如問我如何面對睡前滑手機的挑戰，讓我們一起找到溫和且切實可行的調整步調！
                         </div>
                     </div>
                 </div>
@@ -443,6 +443,7 @@
 
     <script>
         // ========================================================
+        // 🚨 已直接串接「全新部署」後的 Google Apps Script URL
         // ========================================================
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw27Gz0mHJ7c8biazPLchPw8qyuNKS0buK40KBpNnwWwzgim_EoZeqSDm-gUUdYfJWa/exec";
 
@@ -545,7 +546,30 @@
         let quizState = {}; 
 
         // ==========================================
+        // 說明彈窗控制邏輯
         // ==========================================
+        function openInstructionsModal() {
+            const modal = document.getElementById('instructions-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('pointer-events-auto');
+                modal.querySelector('.glass-panel').classList.remove('scale-90');
+                modal.querySelector('.glass-panel').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeInstructionsModal() {
+            const modal = document.getElementById('instructions-modal');
+            modal.classList.add('opacity-0');
+            modal.classList.remove('pointer-events-auto');
+            modal.querySelector('.glass-panel').classList.add('scale-90');
+            modal.querySelector('.glass-panel').classList.remove('scale-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
         function startQuiz() {
             document.getElementById('view-landing').classList.add('hidden');
             document.getElementById('view-quiz').classList.remove('hidden');
@@ -585,7 +609,7 @@
                 card.setAttribute('draggable', 'true');
                 card.setAttribute('data-index', index);
 
-                // 綁定極流暢的 HTML5 動態拖曳事件
+                // 綁定 HTML5 拖曳事件
                 card.addEventListener('dragstart', handleDragStart);
                 card.addEventListener('dragover', handleDragOver);
                 card.addEventListener('drop', handleDrop);
@@ -642,8 +666,6 @@
             }
         }
 
-        // ==========================================
-        // ==========================================
         function moveCard(index, direction, event) {
             event.stopPropagation();
             const state = quizState[quizData[currentDimension].id];
@@ -664,9 +686,7 @@
             renderCurrentDimension();
         }
 
-        // ==========================================
-        // 優化後的極流暢即時排序 (Dnd Flow Engine)
-        // ==========================================
+        // 拖曳流星引擎
         let dragSourceIndex = null;
         let activeDraggedElement = null;
 
@@ -738,6 +758,7 @@
         };
 
         // ==========================================
+        // 精準心理數據計算模組
         // ==========================================
         function calculateResults() {
             let totalCognitiveError = 0;
@@ -845,10 +866,12 @@
         }
 
         // ==========================================
+        // 🌟 核心數據打包與傳送：回傳分數直接加上 [得分數字]%
         // ==========================================
         function sendDataToGoogleSheets() {
             const syncBar = document.getElementById('sheets-sync-bar');
             
+            // 防呆機制修正：避免因為大量取代導致與自己設定好的網址匹配
             if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("YOUR_GOOGLE_APPS") || GOOGLE_SCRIPT_URL === "") {
                 syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-amber-500/10 text-amber-500 border border-amber-500/20";
                 syncBar.innerHTML = `⚠️ 尚未設定 Google 試算表串接網址，數據僅在本地端運作。`;
@@ -858,19 +881,20 @@
             const dimScores = getDimensionScores();
             const fallbackAnalysis = getFallbackData();
 
+            // 建立完整的 JSON 扁平化 Payload 物件，並在所有分數欄位後方直接附加 "%" 符號
             const payload = {
                 timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
-                cognitiveScore: globalResults.cognitiveScore,
-                addictionScore: globalResults.addictionScore,
-                flexibilityScore: globalResults.flexibilityScore,
+                cognitiveScore: globalResults.cognitiveScore + "%",
+                addictionScore: globalResults.addictionScore + "%",
+                flexibilityScore: globalResults.flexibilityScore + "%",
                 verdict: document.getElementById('tug-verdict').innerText.replace(/[\n\r]+/g, ' '),
                 verdictDescription: document.getElementById('tug-percentage-stat').innerText.replace(/[\n\r]+/g, ' '),
                 
-                emotionScore: (dimScores.find(d => d.id === 'emotion')?.score || 0),
-                selfControlScore: (dimScores.find(d => d.id === 'selfControl')?.score || 0),
-                dailyLifeScore: (dimScores.find(d => d.id === 'dailyLife')?.score || 0),
-                dependencyScore: (dimScores.find(d => d.id === 'dependency')?.score || 0),
-                socialImpactScore: (dimScores.find(d => d.id === 'socialImpact')?.score || 0),
+                emotionScore: (dimScores.find(d => d.id === 'emotion')?.score || 0) + "%",
+                selfControlScore: (dimScores.find(d => d.id === 'selfControl')?.score || 0) + "%",
+                dailyLifeScore: (dimScores.find(d => d.id === 'dailyLife')?.score || 0) + "%",
+                dependencyScore: (dimScores.find(d => d.id === 'dependency')?.score || 0) + "%",
+                socialImpactScore: (dimScores.find(d => d.id === 'socialImpact')?.score || 0) + "%",
                 
                 emotionOrder: quizState['emotion'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
                 selfControlOrder: quizState['selfControl'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
@@ -891,7 +915,7 @@
 
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors', 
+                mode: 'no-cors', // 用於防範 CORS 預檢阻擋，並確保 GAS 端 doPost 仍能順利接收 text/plain 資料流
                 headers: {
                     'Content-Type': 'text/plain' 
                 },
@@ -908,8 +932,6 @@
             });
         }
 
-        // ==========================================
-        // ==========================================
         function drawRadarChart() {
             const svg = document.getElementById('radar-chart');
             svg.innerHTML = ''; 
@@ -1008,8 +1030,6 @@
             });
         }
 
-        // ========================================================
-        // ========================================================
         function showDimensionFeedback(dimId) {
             const feedbackBox = document.getElementById('dimension-feedback-text');
             feedbackBox.classList.remove('hidden');
@@ -1056,7 +1076,9 @@
             feedbackBox.innerHTML = detailHtml;
         }
 
-        // 排除所有基礎生理與營養學衛教資訊，純粹以環境控制與行為調整出發
+        // ==========================================
+        // 排除生理與營養學衛教資訊，純粹以環境控制與習慣調整出發
+        // ==========================================
         function getFallbackData() {
             let summary = "";
             let strength = "";
@@ -1068,24 +1090,24 @@
                 strength = "自主掌控力強，不受非必要通知干擾。";
                 weakness = "日常低頻率的偶發滑動仍略微牽制您的專注。";
                 tactics = [
-                    { title: "通知精細管理", action: "關閉非必要之應用程式即時推播，化被動打擾為主動自查。" },
-                    { title: "儀式界線建立", action: "每日規劃一小段完全不觸碰螢幕的時間，專注投入當下的現實生活。" }
+                    { title: "無干擾用餐", action: "用餐時一律不使用手機，專注於當下體驗，重建感官連結。" },
+                    { title: "過濾非必要通知", action: "關閉非緊急應用程式的即時推播，由被動打擾轉為主動查詢。" }
                 ];
             } else if (globalResults.addictionScore <= 65) {
                 summary = "您目前正與數位依賴展開拉鋸相持。雖然您擁有自省心態與管理意願，但在身心疲憊時，手機仍容易干擾您的生活節奏。";
-                strength = "具備自我覺察，對依賴現狀有明確認知。";
-                weakness = "行為控制力在放鬆時容易降低。";
+                strength = "具備自我覺察，對數位依賴現狀有明確認知。";
+                weakness = "行為控制力在精神放鬆時容易降低。";
                 tactics = [
-                    { title: "界面視覺優化", action: "將手機桌布替換為極簡純色，並把娛樂軟體深埋入資料夾以減少點擊。" },
-                    { title: "主動式限制干擾", action: "設定社群軟體的每日限額，到達限制即自動登出以中斷無意識瀏覽。" }
+                    { title: "螢幕灰階調整", action: "將手機顯示色彩設為單色，降低色彩刺激，減少非必要滑動欲念。" },
+                    { title: "主動式增加難度", action: "登出社群軟體或將其移入深層資料夾，增加開啟障礙以中斷制約。" }
                 ];
             } else {
                 summary = "警報響起！您的部分生活層面已被數位依賴滲透，作息、專注度與現實人際關係皆受到明顯牽引，建議積極介入干預。";
                 strength = "對數位媒介敏感，具備豐富的社群即時體驗。";
-                weakness = "現實生活防線失守，日常效率受顯著拖延。";
+                weakness = "現實生活防線失守，睡眠及日常效率受顯著拖延。";
                 tactics = [
-                    { title: "空間物理隔離", action: "在玄關或工作區外設定手機置放處，非必要時間絕不隨身攜帶。" },
-                    { title: "實體體驗替代", action: "規劃必須使用雙手的實體休閒，如手作、拼圖或閱讀，轉移對螢幕的專注。" }
+                    { title: "深夜睡眠隔離", action: "購買獨立鬧鐘，並將手機放置於臥房之外充電，杜絕深夜滑動機會。" },
+                    { title: "重建實體習慣", action: "規劃不插電的運動、手作或閱讀，透過現實體驗重塑生活神經反饋。" }
                 ];
             }
 
@@ -1147,14 +1169,12 @@
             `;
         }
 
-        // ==========================================
-        // ==========================================
         async function generateAiAnalysis() {
             const fallbackData = getFallbackData();
             renderAiVisualAdvice(fallbackData, true);
 
             let userReport = "【使用者拔河測驗數據】\n";
-            userReport += `健康認知判斷度: ${globalResults.cognitiveScore}%, 行為依賴度: ${globalResults.addictionScore}%, 心理防線餘裕: ${globalResults.flexibilityScore}%\n\n`;
+            userReport += `健康認知判斷度: ${globalResults.cognitiveScore}%, 成癮依賴度: ${globalResults.addictionScore}%, 心理防線餘裕: ${globalResults.flexibilityScore}%\n\n`;
             
             quizData.forEach(dim => {
                 const state = quizState[dim.id];
@@ -1167,15 +1187,15 @@
                 userReport += `● ${dim.title}: 勾選的依賴行為包括: ${checked.length > 0 ? checked.join('；') : '無特別失控依賴行為，狀態健康'}\n`;
             });
 
-            // 加入明確的限制指令，排除生理衛教資訊
+            // ⚠️ 嚴格禁忌指令：不准出現任何生物生理學、生理睡眠科學或營養運動衛教字眼，完全回歸環境控制與純習慣調整
             const systemPrompt = `您是一位專業、溫和、且極具耐心的心理諮商 AI。
-            請依據使用者的作答資料，用清晰、好理解且充滿同理心的正式口吻（使用「您」）撰寫個人分析報告。
-            特別禁忌：生成內容中絕對不得提及、引用或說明任何基礎生理學（如大腦結構、神經傳導物質、褪黑激素）、生理衛教、睡眠醫學（睡眠生理週期）或營養學與運動生理學資訊。請完全從環境控制（如增加開啟難度、物理隔絕空間）、習慣替代與純粹的心理與行為調整角度提供建議。
-            您必須嚴格遵守以下 JSON 格式回覆，絕對不能包含任何 \`\`\`json 等 Markdown 包裝：
+            請依據使用者的作談資料，用清晰、好理解且充滿同理心的正式口吻（使用「您」）撰寫個人分析報告。
+            特別禁忌：回覆中絕對不得提及或涉及任何基礎生理學（例如大腦結構、神經傳導遞質、多巴胺、褪黑激素）、生理衛教、睡眠醫學（睡眠生理週期）或營養運動生理學資訊。請完全從環境控制（如阻力設置、物理隔絕）、生活習慣替代與純粹的心理行為調整角度出發提供建議。
+            您必須嚴格遵守以下 JSON 格式回覆，絕對不能包含 \`\`\`json 等 Markdown 包裝：
             {
-              "summary": "一句對使用者防線拉鋸狀態的溫和、中肯、富含同理心且不具生理術語的簡短描述（繁體中文，限 60 字）",
-              "strength": "客觀肯定使用者在心智掌控或防線上的優勢，若無也請予以心理建設鼓勵（繁體中文，限 40 字）",
-              "weakness": "以溫柔客觀語氣指出使用者受到依賴行為牽制的脆弱防守點，避開任何大腦生理機轉字彙（繁體中文，限 40 字）",
+              "summary": "一句對使用者防線狀態的溫和、中肯、富含同理心且絕不提及生理術語的簡短描述（繁體中文，限 60 字）",
+              "strength": "客觀肯定使用者目前的掌控優點，若無也請予以心理建設鼓勵（繁體中文，限 40 字）",
+              "weakness": "以溫和客觀語氣指出使用者受到依賴行為牽制的脆弱防守點，避開任何生物學字彙（繁體中文，限 40 字）",
               "tactics": [
                 { "title": "方案一標題（限10字）", "action": "清晰精確、具高可行性的純習慣或環境干預調整建議（繁體中文，限 35 字）" },
                 { "title": "方案二標題（限10字）", "action": "第二項實用、無關生理學的純行為改善建議（繁體中文，限 35 字）" }
@@ -1244,7 +1264,10 @@
             let safeText = text
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+                .replace(/>/g, "&gt bridge;"); // 安全轉義
+            
+            // 修復轉義
+            safeText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
             
             safeText = safeText.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
             safeText = safeText.replace(/\n/g, "<br>");
@@ -1252,6 +1275,7 @@
         }
 
         // ==========================================
+        // 🌟 核心對談助理
         // ==========================================
         async function sendChatMessage() {
             const inputEl = document.getElementById('chat-input');
@@ -1273,12 +1297,12 @@
             dimScores.forEach(d => {
                 quizContext += `  * ${d.name}: ${d.score}%\n`;
             });
-            quizContext += `- 使用者在測驗中勾選符合生活現狀的行為包括:\n${getUserCheckedBehaviorsSummary()}\n\n`;
+            quizContext += `- 使用者在測驗中勾選符合生活現狀的失控行為包括:\n${getUserCheckedBehaviorsSummary()}\n\n`;
             quizContext += `- 填答者當前具體的疑惑/提問: "${messageText}"\n\n`;
             
             quizContext += "【回覆規則限制】：\n" +
-                          "1. 請不要使用制式、死板、格式化的模板，而要用流暢且親切自然的專業諮商與陪伴口吻進行解答。\n" +
-                          "2. 請根據提問內容，結合上方「填答者背景」的弱勢，提供客製化、個人化的習慣改變與平衡建議。回覆中請一律使用敬語「您」。\n" +
+                          "1. 請不要使用制式、死板、格式化的模板（千萬不要有重複的 '現況剖析'、'行為對策'、'日常練習' 標題來束縛您的文字），而是要用流暢且親切自然的專業諮商與陪伴口吻進行解答。\n" +
+                          "2. 請根據提問內容，結合上方「填答者背景」的弱勢，提供客製化、個人化的習慣改變與平衡建議。回覆中請一律使用敬語「您」代替「你」。\n" +
                           "3. 特別禁忌：回覆內容中絕對不得包含、提及或宣導任何基礎生理學、生理機轉（如大腦傳導、多巴胺、褪黑激素）、基礎生理衛教、睡眠生理週期、生理健康及營養學資訊。請完全從環境控制（如空間防禦、阻力設定）、生活習慣替代與心理認知重塑的角度切入，提供溫和且切實可行的轉變指引。\n" +
                           "4. 為了利於使用者在手機上快速理解、輕鬆掃描，您必須在回覆中加入「條列式（可以使用精緻 Emoji 引導點）」的方式呈現 2 到 3 個「阻力極小、今天就能立刻開始執行」的行為控制微習慣。\n" +
                           "5. 請一定要主動配合使用雙星號（**）來將重要的概念、行動步驟或關鍵字進行「加粗強調」。\n" +
@@ -1366,7 +1390,7 @@
                 <div class="flex items-start gap-2.5">
                     <div class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]">🤖</div>
                     <div class="bg-indigo-100/80 dark:bg-indigo-950/40 text-slate-700 dark:text-slate-300 p-2.5 rounded-2xl rounded-tl-none text-[11px] max-w-[80%] leading-relaxed font-light">
-                        您好！我是您的 AI 手機退癮助手。我已細心為您整理好本次測驗中呈現的心理防線與日常手機依賴狀態。您可以隨時與我聊聊，例如問我如何面對睡前滑手機的挑戰，讓我們一起找到溫和且切實可行的調整步調！
+                        您好！我是您的 **AI 手機退癮助手**。我已細心為您整理好本次測驗中呈現的心理防線與日常手機依賴狀態。您可以隨時與我聊聊，例如問我如何面對睡前滑手機的挑戰，讓我們一起找到溫和且切實可行的調整步調！
                     </div>
                 </div>
             `;
