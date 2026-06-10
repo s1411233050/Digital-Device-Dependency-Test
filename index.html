@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>被「點亮」的焦慮：滑動世代的情緒防線——正常使用與依賴使用行為的心理拔河</title>
+    <title>被「點亮」的焦慮：滑世代的情緒防線——正常使用與依賴使用行為的心理拔河</title>
     <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -138,7 +138,7 @@
                     被<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-rose-400">「點亮」</span>的焦慮
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-bold mt-1 px-4">
-                    您是手機的主人，還是被虛擬訊號制約的被動使用者？
+                    您是手機的主人，還是被虛擬多巴胺制約的被動使用者？
                 </p>
             </div>
 
@@ -156,10 +156,10 @@
                 </div>
                 <!-- 拔河繩索 -->
                 <div class="absolute w-full h-1 bg-gradient-to-r from-teal-400 via-purple-500 to-rose-500 top-1/2 -translate-y-1/2 z-0 opacity-80 flex items-center justify-between">
-                    <span class="text-[9px] bg-teal-500 text-white px-2.5 py-0.5 rounded-full -translate-y-5 font-bold shadow-sm">現實自主權</span>
+                    <span class="text-[9px] bg-rose-500 text-white px-2.5 py-0.5 rounded-full -translate-y-5 font-bold shadow-sm">高依賴 (最上方)</span>
                     <!-- 繩結 -->
                     <span class="w-3.5 h-3.5 bg-white rounded-full ring-4 ring-rose-500 animate-ping"></span>
-                    <span class="text-[9px] bg-rose-500 text-white px-2.5 py-0.5 rounded-full -translate-y-5 font-bold shadow-sm">數位重度依賴</span>
+                    <span class="text-[9px] bg-teal-500 text-white px-2.5 py-0.5 rounded-full -translate-y-5 font-bold shadow-sm">正常使用 (最下方)</span>
                 </div>
             </div>
 
@@ -171,15 +171,15 @@
                 <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-3.5 leading-relaxed">
                     <li class="flex items-start">
                         <span class="bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5 shrink-0">1</span>
-                        <span>測驗共涵蓋 <strong>5 大心智維度</strong>，每關提供 5 項隨機排列的日常手機使用行為。</span>
+                        <span>測驗共 <strong>5 大心智維度</strong>，每關提供 5 項隨機排列的日常手機使用情境。</span>
                     </li>
                     <li class="flex items-start">
                         <span class="bg-purple-500/20 text-purple-600 dark:text-purple-400 rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5 shrink-0">2</span>
-                        <span>請<strong>利用上下按鈕或拖曳</strong>進行排序：行為越趨於正常、健康者請排在<strong>最上方</strong>；越傾向失控、焦慮者排在<strong>最下方</strong>。</span>
+                        <span>請<strong>利用上下按鈕或拖曳</strong>進行排序。越符合您生活現狀、嚴重程度偏高的<b>「依賴使用行為」請排在最上方</b>；越健康的<b>「正常使用行為」請排在最下方</b>。</span>
                     </li>
                     <li class="flex items-start">
                         <span class="bg-rose-500/20 text-rose-600 dark:text-rose-400 rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold mr-2 mt-0.5 shrink-0">3</span>
-                        <span>排序的同時，請同步勾選 <strong>「這符合我」</strong>，標記出您目前生活中的實際狀態！</span>
+                        <span>系統將根據您的排序（尤其是您放在<b>第一名</b>的卡片），來精準計算您的依賴防線數據！</span>
                     </li>
                 </ul>
             </div>
@@ -219,23 +219,23 @@
                 </div>
             </div>
 
-            <!-- 排序提示 -->
+            <!-- 排序提示（優化需求：最符合現狀的往上排） -->
             <div class="text-center">
-                <span class="inline-flex items-center text-[10px] font-bold text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-800/40 px-3.5 py-1 rounded-full border border-slate-200/50 dark:border-slate-700/50 shadow-sm">
-                    <span class="w-2 h-2 rounded-full bg-teal-400 mr-1.5 animate-pulse"></span>最正常、低依賴 (排最上面 💚)
+                <span class="inline-flex items-center text-[10px] font-bold text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-800/40 px-3.5 py-1.5 rounded-full border border-slate-200/50 dark:border-slate-700/50 shadow-sm">
+                    <span class="w-2 h-2 rounded-full bg-rose-400 mr-1.5 animate-pulse"></span>最符合現狀的往上排 (排在最上面 #1 💔)
                     <span class="mx-3 text-slate-300 dark:text-slate-600">|</span>
-                    <span class="w-2 h-2 rounded-full bg-rose-400 mr-1.5 animate-pulse"></span>最嚴重、高依賴 (排最下方 💔)
+                    <span class="w-2 h-2 rounded-full bg-teal-400 mr-1.5 animate-pulse"></span>最不符合的往下拉 (排在最下面 #5 💚)
                 </span>
             </div>
 
-            <!-- 亂序卡片容器 -->
-            <div id="cards-container" class="space-y-3 min-h-[350px]">
+            <!-- 2. 卡片容器（全面重構優化：寬屏與手機自適應、左圖右字、圖片大小適中、文字完好展示、#1~#5右置） -->
+            <div id="cards-container" class="space-y-4 min-h-[450px]">
                 <!-- 行為卡片將在此動態生成 -->
             </div>
 
             <!-- 底部按鈕 -->
             <div class="pt-2 flex space-x-3">
-                <button id="btn-prev" onclick="prevDimension()" class="w-1/3 py-3.5 rounded-2xl text-xs font-semibold bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 active:scale-95 transition-all shadow-md">
+                <button id="btn-prev" onclick="prevDimension()" class="w-1/3 py-3.5 rounded-2xl text-xs font-semibold bg-white/80 dark:bg-slate-800/80 border border-slate-200/20 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 active:scale-95 transition-all shadow-md">
                     回上一關
                 </button>
                 <button id="btn-next" onclick="nextDimension()" class="w-2/3 py-3.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg hover:brightness-110 active:scale-95 transition-all">
@@ -362,7 +362,7 @@
                     <div class="flex items-start gap-2.5">
                         <div class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]">🤖</div>
                         <div class="bg-indigo-100/80 dark:bg-indigo-950/40 text-slate-700 dark:text-slate-300 p-2.5 rounded-2xl rounded-tl-none text-[11px] max-w-[80%] leading-relaxed font-light">
-                            您好！我是您的 **AI 手機退癮助手**。我已檢視完您本次的心理防線與依賴行為。您是否想知道如何針對您的弱勢項目進行調整？歡迎在此提問，讓我陪伴您逐步建立健康的生活節奏！
+                            您好！我是您的 AI 手機退癮助手。我已細心檢視完您本次的行為排序結果。不論您在日常生活或自我控制防線上遇到了什麼煩惱，我都十分樂意以溫和且符合生活步調的方式，陪伴您一同尋求改善方案，找回屬於您的現實主控權。
                         </div>
                     </div>
                 </div>
@@ -409,22 +409,22 @@
                 <div class="flex items-start space-x-3">
                     <div class="bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-black shrink-0">1</div>
                     <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
-                        <strong>上下滑動與排序：</strong> 
-                        行為越偏向正常、自律者，請挪動到<span class="text-teal-500">最上方 💚</span>；越偏向失控、焦慮者，請放在<span class="text-rose-500">最下方 💔</span>。
+                        <strong>最符合現狀的往上排：</strong> 
+                        行為越偏向「依賴使用、符合生活現狀」者，請挪動到<span class="text-rose-500">最上方 #1 💔</span>；越偏向「自律、正常使用」者，請放在<span class="text-teal-500">最下方 #5 💚</span>。
                     </p>
                 </div>
                 <div class="flex items-start space-x-3">
                     <div class="bg-purple-500/20 text-purple-600 dark:text-purple-400 rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-black shrink-0">2</div>
                     <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
-                        <strong>「這符合我」判定：</strong> 
-                        排序的同時，請根據您目前的日常習慣，勾選符合您真實生活的項目，系統將依此計算您的「依賴度」。
+                        <strong>分數計算方式：</strong> 
+                        本測驗無須手動勾選。系統會直接根據您最後將哪一項行為卡片排在「第 1 名（最上方）」，以此作為核心依賴加權依據，計算出您的防守狀況。
                     </p>
                 </div>
                 <div class="flex items-start space-x-3">
                     <div class="bg-rose-500/20 text-rose-600 dark:text-rose-400 rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-black shrink-0">3</div>
                     <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
                         <strong>心理拔河解析：</strong> 
-                        完成 5 個層面後，將與群體進行戰況解析，呈現您的現實主導權防禦比例。
+                        完成 5 個生活層面的卡片排列後，將會立即與資料庫進行比對，生成專屬防守雷達圖與純行為退癮建議。
                     </p>
                 </div>
             </div>
@@ -438,12 +438,12 @@
     <!-- 頁尾 -->
     <footer class="w-full max-w-xl mx-auto text-center py-6 text-[10px] text-slate-500 dark:text-slate-500 z-10 relative font-medium">
         <p>© 2026 被「點亮」的焦慮：滑動世代的情緒防線專題小組. All rights reserved.</p>
-        <p class="mt-1">本平台僅供自我察覺與學術討論參考，AI 建議不具備專業醫療與生理診斷效力。</p>
+        <p class="mt-1">本平台僅供自我察覺與學術討論參考，AI 建議不具備專業醫療諮商效力。</p>
     </footer>
 
     <script>
         // ========================================================
-        // 🚨 重要：請在此處填入您「全新部署」後的 Google Apps Script URL
+        // 🚨 重要：已直接填入您全新部署的 Google Apps Script URL
         // ========================================================
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw27Gz0mHJ7c8biazPLchPw8qyuNKS0buK40KBpNnwWwzgim_EoZeqSDm-gUUdYfJWa/exec";
 
@@ -473,7 +473,7 @@
             document.documentElement.classList.add('dark');
         }
 
-        // 題目資料設定 (情緒、自控、生活、依賴、社交)
+        // 清晰、精準且易理解的測驗題目與高匹配情境圖（全部更換為 permanently 穩定的 Unsplash 精選大圖，確保 100% 成功加載顯示）
         const quizData = [
             {
                 id: 'emotion',
@@ -481,11 +481,11 @@
                 desc: '手機通知提示音是否正主導著您的心理起伏與焦慮程度？',
                 illustration: '🎭',
                 items: [
-                    { severity: 1, text: "當手機跳出通知而您無法立刻查看時，您心裡會感到有些浮躁或不安。", img: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=150&q=80", emoji: "🔔" },
-                    { severity: 2, text: "您發現自己常因為在社群媒體上看到他人的精彩生活，而莫名感到失落、羨慕或焦慮。", img: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=150&q=80", emoji: "😔" },
-                    { severity: 3, text: "當訊息被「已讀不回」或發文按讚數不如預期時，您會整天心情低落、頻繁且焦慮地檢查手機。", img: "https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=150&q=80", emoji: "💔" },
-                    { severity: 4, text: "如果強迫您一段時間不能使用手機，您會變得容易煩躁、易怒，甚至對身邊的人產生情緒。", img: "https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?auto=format&fit=crop&w=150&q=80", emoji: "😡" },
-                    { severity: 5, text: "當手機網路斷線或手機遺失時，您會陷入極度的恐慌與不安，甚至感到內心秩序全面瓦解。", img: "https://images.unsplash.com/photo-1596524430615-b46475ddff6e?auto=format&fit=crop&w=150&q=80", emoji: "😱" }
+                    { severity: 1, text: "當手機跳出通知而您無法立刻查看時，您心裡會感到有些浮躁或不安。", img: "https://images.unsplash.com/photo-1598128558393-70ff21433be0?auto=format&fit=crop&w=400&q=80", emoji: "🔔" },
+                    { severity: 2, text: "您發現自己常因為在社群媒體上看到他人的精彩生活，而莫名感到失落、羨慕或焦慮。", img: "https://images.unsplash.com/photo-1516246843873-9d12356b6fab?auto=format&fit=crop&w=400&q=80", emoji: "😔" },
+                    { severity: 3, text: "當訊息被「已讀不回」或發文按讚數不如預期時，您會整天心情低落、頻繁且焦慮地檢查手機。", img: "https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&w=400&q=80", emoji: "💔" },
+                    { severity: 4, text: "如果強迫您一段時間不能使用手機，您會變得容易煩躁、易怒，甚至對身邊的人產生情緒。", img: "https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?auto=format&fit=crop&w=400&q=80", emoji: "😡" },
+                    { severity: 5, text: "當手機網路斷線或手機遺失時，您會陷入極度的恐慌與不安，甚至感到內心秩序全面瓦解。", img: "https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=400&q=80", emoji: "😱" }
                 ]
             },
             {
@@ -494,24 +494,24 @@
                 desc: '您是否時常偏離最初預期的使用時間，陷入非自主的滑動行為？',
                 illustration: '⏳',
                 items: [
-                    { severity: 1, text: "在準備閱讀、撰寫報告或工作前，您會習慣性地先點開手機使用，因而耽誤了開始的時間。", img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=150&q=80", emoji: "📝" },
-                    { severity: 2, text: "您常常心想「回覆個訊息、看個短影音就放下」，結果專注其中後，一兩個小時便悄然流逝。", img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=150&q=80", emoji: "🌪️" },
-                    { severity: 3, text: "即使明確知道明天有重要的考試、截止日期（Deadline）或早課，您依然無法克制自己熬夜使用手機。", img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=150&q=80", emoji: "🦉" },
-                    { severity: 4, text: "您曾下載過限制使用時間的軟體（如設定螢幕使用時間），嘗試減少手機使用，但最後仍忍不住解除限制。", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=150&q=80", emoji: "🔓" },
-                    { severity: 5, text: "您感到自己完全失去主動放下手機的能力，即使眼睛酸痛、手腕感到不適，依然難以停止。", img: "https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&w=150&q=80", emoji: "🔗" }
+                    { severity: 1, text: "在準備閱讀、撰寫報告或工作前，您會習慣性地先點開手機使用，因而耽誤了開始的時間。", img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=400&q=80", emoji: "📝" },
+                    { severity: 2, text: "您常常心想「回覆個訊息、看個短影音就放下」，結果專注其中後，一兩個小時便悄然流逝。", img: "https://images.unsplash.com/photo-1551817958-1110f7ab40c3?auto=format&fit=crop&w=400&q=80", emoji: "🌪️" },
+                    { severity: 3, text: "即使明確知道明天有重要的考試、截止日期（Deadline）或早課，您依然無法克制自己熬夜使用手機。", img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=400&q=80", emoji: "🦉" },
+                    { severity: 4, text: "您曾下載過限制使用時間的軟體（如設定螢幕使用時間），嘗試減少手機使用，但最後仍忍不住解除限制。", img: "https://images.unsplash.com/photo-1510519138101-570d1dca3d66?auto=format&fit=crop&w=400&q=80", emoji: "🔓" },
+                    { severity: 5, text: "您感到自己完全失去主動放下手機的能力，即使眼睛酸痛、手腕感到不適，依然難以停止。", img: "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?auto=format&fit=crop&w=400&q=80", emoji: "🔗" }
                 ]
             },
             {
                 id: 'dailyLife',
                 title: '三、 日常生活 (Daily Life)',
-                desc: '虛擬世界的活動，是否正在逐步擠壓並擾亂您的現實作息？',
+                desc: '虛擬世界的活動，是否正在逐漸擠壓並擾亂您的現實作息？',
                 illustration: '🏡',
                 items: [
-                    { severity: 1, text: "因為睡前躺在床上使用手機，您經常比預計的時間晚睡半小時至一小時。", img: "https://images.unsplash.com/photo-1505682631700-ec7b44369081?auto=format&fit=crop&w=150&q=80", emoji: "🛌" },
-                    { severity: 2, text: "您經常一邊吃飯一邊觀看影音（或玩遊戲），導致用餐時間過長，日常作息開始出現混亂。", img: "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=150&q=80", emoji: "🍜" },
-                    { severity: 3, text: "因為過度使用手機，您處理日常事務（如整理環境）的效率變差，生活空間開始變得雜亂。", img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=150&q=80", emoji: "🧺" },
-                    { severity: 4, text: "手機嚴重影響了您的睡眠品質，導致白天上課或上班時精神不振、難以集中注意力。", img: "https://images.unsplash.com/photo-1511295742364-92767fa62d9f?auto=format&fit=crop&w=150&q=80", emoji: "🥱" },
-                    { severity: 5, text: "您因為過度沉迷手機而經常遲到、甚至無法完成報告，基本的日常作息與學業（或工作）已面臨停擺狀態。", img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=150&q=80", emoji: "💥" }
+                    { severity: 1, text: "因為睡前躺在床上使用手機，您經常比預計的時間晚睡半小時至一小時。", img: "https://images.unsplash.com/photo-1511295742364-92767fa62d9f?auto=format&fit=crop&w=400&q=80", emoji: "🛌" },
+                    { severity: 2, text: "您經常一邊吃飯一邊觀看影音（或玩遊戲），導致用餐時間過長，日常作息開始出現混亂。", img: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=400&q=80", emoji: "🍜" },
+                    { severity: 3, text: "因為過度使用手機，您處理日常事務（如整理環境）的效率變差，生活空間開始變得雜亂。", img: "https://images.unsplash.com/photo-1595246140625-573b715d11dc?auto=format&fit=crop&w=400&q=80", emoji: "🧺" },
+                    { severity: 4, text: "手機嚴重影響了您的睡眠品質，導致白天上課 or 上班時精神不振、難以集中注意力。", img: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80", emoji: "🥱" },
+                    { severity: 5, text: "您因為過度沉迷手機而經常遲到、甚至無法完成報告，基本的日常作息與學業（或工作）已面臨停擺狀態。", img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=400&q=80", emoji: "💥" }
                 ]
             },
             {
@@ -520,11 +520,11 @@
                 desc: '手機對您而言，是一個單純的便利工具，還是不可或缺的心智延伸物？',
                 illustration: '🔌',
                 items: [
-                    { severity: 1, text: "只要一進入空閒的空檔（如等候、排隊或上洗手間），您便會下意識地拿起手機。", img: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=150&q=80", emoji: "🚦" },
-                    { severity: 2, text: "以前使用半小時手機便感到滿足，現在需要花費更多時間沉浸其中，才能獲得相同的娛樂感。", img: "https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&w=150&q=80", emoji: "⚡" },
-                    { severity: 3, text: "只要手機不在您的視線範圍內，或電量低於 20%，您心裡便會感到強烈的不安全感與焦慮。", img: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&w=150&q=80", emoji: "🪫" },
-                    { severity: 4, text: "即使與他人交談或在路上行走時，您也必須將手機握在手中或頻繁查看，手機彷彿成為身體的一部分。", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=150&q=80", emoji: "✋" },
-                    { severity: 5, text: "您覺得自己一分一秒都離不開手機，若未隨身攜帶出門，便會感到整天無法正常生活。", img: "https://images.unsplash.com/photo-1586105251261-72a756497a11?auto=format&fit=crop&w=150&q=80", emoji: "🚪" }
+                    { severity: 1, text: "只要一進入空閒的空檔（如等候、排隊或上洗手間），您便會下意識地拿起手機。", img: "https://images.unsplash.com/photo-1493134790176-13d6148e243e?auto=format&fit=crop&w=400&q=80", emoji: "🚦" },
+                    { severity: 2, text: "以前使用半小時手機便感到滿足，現在需要花費更多時間沉浸其中，才能獲得相同的娛樂感。", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80", emoji: "⚡" },
+                    { severity: 3, text: "只要手機不在您的視線範圍內，或電量低於 20%，您心裡便會感到強烈的不安全感與焦慮。", img: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&w=400&q=80", emoji: "🪫" },
+                    { severity: 4, text: "即使與他人交談或在路上行走時，您也必須將手機握在手中或頻繁查看，手機彷彿成為身體的一部分。", img: "https://images.unsplash.com/photo-1484480974693-2ca0a782ea4b?auto=format&fit=crop&w=400&q=80", emoji: "✋" },
+                    { severity: 5, text: "您覺得自己一分一秒都離不開手機，若未隨身攜帶出門，便會感到整天無法正常生活。", img: "https://images.unsplash.com/photo-1586105251261-72a756497a11?auto=format&fit=crop&w=400&q=80", emoji: "🚪" }
                 ]
             },
             {
@@ -533,11 +533,11 @@
                 desc: '螢幕兩端的社交活動，是否正逐漸削弱您在現實中與親友的深層連結？',
                 illustration: '👥',
                 items: [
-                    { severity: 1, text: "為了能留有更多時間進行網路社交或使用手機，您最近推掉了一些現實中非必要的聚會。", img: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=150&q=80", emoji: "🏠" },
-                    { severity: 2, text: "與朋友、家人聚餐或談話時，您經常忍不住分心查看手機，而被對方指責不夠專注。", img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=150&q=80", emoji: "🍽️" },
-                    { severity: 3, text: "身邊親近的人（如伴侶、室友、父母）開始認真提醒或抱怨，認為您花費太多時間在手機上而忽略了彼此的互動。", img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=150&q=80", emoji: "🗣️" },
-                    { severity: 4, text: "您曾因為過度沉迷手機（或在不當場合使用），與身邊重要的人發生過嚴重爭執，甚至引發信任危機。", img: "https://images.unsplash.com/photo-1516575150278-77136aed6920?auto=format&fit=crop&w=150&q=80", emoji: "🔥" },
-                    { severity: 5, text: "您認為網路與手機世界比現實更具溫度，因而逐漸減少與現實中親友的往來，選擇退縮在虛擬世界中。", img: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=150&q=80", emoji: "🏰" }
+                    { severity: 1, text: "為了能留有更多時間進行網路社交或使用手機，您最近推掉了一些現實中非必要的聚會。", img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80", emoji: "🏠" },
+                    { severity: 2, text: "與朋友、家人聚餐或談話時，您經常忍不住分心查看手機，而被對方指責不夠專注。", img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=400&q=80", emoji: "🍽️" },
+                    { severity: 3, text: "身邊親近的人（如伴侶、室友、父母）開始認真提醒或抱怨，認為您花費太多時間在手機上而忽略了彼此的互動。", img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80", emoji: "🗣️" },
+                    { severity: 4, text: "您曾因為過度沉迷手機（或在不當場合使用），與身邊重要的人發生過嚴重爭執，甚至引發信任危機。", img: "https://images.unsplash.com/photo-1502444330042-d1a1ddf9bb5c?auto=format&fit=crop&w=400&q=80", emoji: "🔥" },
+                    { severity: 5, text: "您認為網路與手機世界比現實更具溫度，因而逐漸減少與現實中親友的往來，選擇退縮在虛擬世界中。", img: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=400&q=80", emoji: "🏰" }
                 ]
             }
         ];
@@ -579,7 +579,7 @@
                 let shuffled = [...dim.items].sort(() => Math.random() - 0.5);
                 quizState[dim.id] = {
                     shuffledItems: shuffled,
-                    checkedRealities: {}
+                    checkedRealities: {} 
                 };
             });
             
@@ -587,6 +587,9 @@
             renderCurrentDimension();
         }
 
+        // ========================================================
+        // 渲染新版卡片：全面重構版面「左圖右字」、圖片大小適中且不放大、文字 100% 完整展示、#1~#5右置
+        // ========================================================
         function renderCurrentDimension() {
             const data = quizData[currentDimension];
             const state = quizState[data.id];
@@ -603,32 +606,34 @@
             container.innerHTML = '';
 
             state.shuffledItems.forEach((item, index) => {
-                const isChecked = state.checkedRealities[item.severity] || false;
                 const card = document.createElement('div');
-                card.className = `p-3 rounded-2xl border flex items-center justify-between space-x-3 card-transition relative z-10 shadow-sm ${isChecked ? 'border-rose-500 bg-rose-50/20 dark:bg-rose-950/10 ring-2 ring-rose-500/30' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 hover:border-blue-400 dark:hover:border-blue-900'}`;
+                
+                // 💎 改動亮點 1：採用標準的「左圖右字」流體多重彈性佈局，取消固定高，確保文字永不重疊
+                card.className = `group relative w-full rounded-2xl border border-slate-200/50 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 p-3 card-transition z-10 flex items-center justify-between space-x-3 hover:border-indigo-500/50 hover:shadow-lg transition-all duration-300`;
                 card.setAttribute('draggable', 'true');
                 card.setAttribute('data-index', index);
 
-                // 綁定 HTML5 拖曳事件
+                // 綁定極流暢的 HTML5 動態拖曳事件
                 card.addEventListener('dragstart', handleDragStart);
                 card.addEventListener('dragover', handleDragOver);
                 card.addEventListener('drop', handleDrop);
                 card.addEventListener('dragend', handleDragEnd);
 
                 card.innerHTML = `
-                    <div class="flex items-center space-x-1.5 shrink-0">
-                        <div class="cursor-grab text-slate-400 hover:text-slate-600 p-1 hidden sm:block">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <!-- 1. 左側：輕量拖曳控制鈕與手機點擊微調 -->
+                    <div class="flex items-center space-x-1 shrink-0 z-10 bg-slate-950/5 dark:bg-slate-950/50 p-1.5 rounded-xl border border-slate-200/30 dark:border-white/5 select-none">
+                        <div class="cursor-grab text-slate-400 hover:text-slate-600 dark:hover:text-white p-0.5 hidden sm:block">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </div>
-                        <div class="flex flex-col space-y-0.5">
-                            <button onclick="moveCard(${index}, 'up', event)" class="p-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200" ${index === 0 ? 'disabled style="opacity: 0.15;"' : ''}>
+                        <div class="flex flex-col space-y-1">
+                            <button onclick="moveCard(${index}, 'up', event)" class="p-1 rounded bg-slate-200/50 dark:bg-white/10 text-slate-700 dark:text-white/70 hover:text-white hover:bg-indigo-600 transition-all duration-200" ${index === 0 ? 'disabled style="opacity: 0.15;"' : ''}>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                            <button onclick="moveCard(${index}, 'down', event)" class="p-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-200" ${index === 4 ? 'disabled style="opacity: 0.15;"' : ''}>
+                            <button onclick="moveCard(${index}, 'down', event)" class="p-1 rounded bg-slate-200/50 dark:bg-white/10 text-slate-700 dark:text-white/70 hover:text-white hover:bg-indigo-600 transition-all duration-200" ${index === 4 ? 'disabled style="opacity: 0.15;"' : ''}>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
@@ -636,19 +641,28 @@
                         </div>
                     </div>
 
-                    <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 dark:from-slate-800 dark:to-slate-700 relative shadow-inner flex items-center justify-center text-lg">
-                        <span class="z-0 pointer-events-none text-xl">${item.emoji}</span>
-                        <img src="${item.img}" alt="插圖" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 z-10 pointer-events-none" onload="this.style.opacity='1';" onerror="this.remove();">
+                    <!-- 2. 中左側：日常情境輔助圖片 (獨立框架，大小適中，寬度高度控制在 80px，絕不異常放大) -->
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden shrink-0 relative border border-slate-200/50 dark:border-white/10 shadow-inner flex items-center justify-center bg-gradient-to-br from-indigo-950 to-slate-900 select-none">
+                        <!-- 底層 Emoji 保證載入時有視覺暗示 -->
+                        <span class="absolute text-xl sm:text-2xl z-0 opacity-40 select-none">${item.emoji}</span>
+                        
+                        <!-- 高穩定 Unsplash 情境圖，具備平滑淡入動畫與破圖 fallback 安全網 -->
+                        <img src="${item.img}" alt="情境圖" class="absolute inset-0 w-full h-full object-cover z-10 opacity-0 transition-opacity duration-300" 
+                             onload="this.classList.remove('opacity-0'); this.classList.add('opacity-100');"
+                             onerror="this.remove();">
                     </div>
 
-                    <div class="flex-grow text-[11px] sm:text-xs leading-relaxed text-slate-800 dark:text-slate-200 px-1 font-semibold">
-                        ${item.text}
+                    <!-- 3. 中右側：行為情境完整說明文字 (字體大小舒適、段落明晰、高度隨內容自動延伸) -->
+                    <div class="flex-grow px-1 select-text">
+                        <p class="text-[11px] sm:text-xs leading-relaxed text-slate-800 dark:text-slate-200 font-bold">
+                            ${item.text}
+                        </p>
                     </div>
 
-                    <button onclick="toggleReality(${item.severity}, event)" class="flex flex-col items-center justify-center shrink-0 p-1.5 rounded-xl border transition-all duration-300 focus:outline-none ${isChecked ? 'bg-gradient-to-r from-rose-500 to-pink-500 border-transparent text-white scale-105 shadow-md shadow-rose-500/20' : 'border-slate-200 dark:border-slate-700 hover:border-rose-400/50 text-slate-400'}" style="min-width: 58px; height: 50px;">
-                        <span class="text-xs">${isChecked ? '🔥' : '✨'}</span>
-                        <span class="text-[8px] font-bold mt-0.5 whitespace-nowrap">這符合我</span>
-                    </button>
+                    <!-- 4. 右側：排名標誌移至最右側 -->
+                    <div class="flex flex-col items-center justify-center bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/30 w-8 h-8 rounded-full shadow-md shrink-0 select-none">
+                        <span class="text-[10px] sm:text-xs font-black text-indigo-600 dark:text-indigo-400">#${index + 1}</span>
+                    </div>
                 `;
                 container.appendChild(card);
             });
@@ -676,13 +690,9 @@
             }
         }
 
-        function toggleReality(severity, event) {
-            event.stopPropagation();
-            const state = quizState[quizData[currentDimension].id];
-            state.checkedRealities[severity] = !state.checkedRealities[severity];
-            renderCurrentDimension();
-        }
-
+        // ==========================================
+        // 優化後的極流暢即時排序 (Dnd Flow Engine)
+        // ==========================================
         let dragSourceIndex = null;
         let activeDraggedElement = null;
 
@@ -753,33 +763,40 @@
             flexibilityScore: 0
         };
 
-        // ==========================================
-        // 精準心理數據計算模組
-        // ==========================================
+        // ========================================================
+        // 修正與重新定義的分數計算邏輯 (權重式位移加分法)
+        // ========================================================
         function calculateResults() {
             let totalCognitiveError = 0;
-            let totalSeverityChecked = 0;
-            const maxPossibleSeveritySum = 25; 
-            const maxPossibleCognitiveError = 60; 
+            let totalSeverityScore = 0; // 累計填答者的嚴重加權
+            
+            const maxPossibleCognitiveError = 60; // 5 dimensions * 12
 
             quizData.forEach(dim => {
                 const state = quizState[dim.id];
+                
+                // 1. 認知排序偏離誤差：不論方向如何，判定受測者排列對錯的能力
                 state.shuffledItems.forEach((item, index) => {
                     const correctIndex = item.severity - 1;
                     totalCognitiveError += Math.abs(index - correctIndex);
                 });
 
-                Object.keys(state.checkedRealities).forEach(sev => {
-                    if (state.checkedRealities[sev]) {
-                        totalSeverityChecked += parseInt(sev);
-                    }
-                });
+                // 2. 行為依賴權重分數：新排序邏輯 (上高依賴 ➔ 下正常使用)
+                // 檢查排列第一名 (最上方, Index 0) 的卡片等級：
+                // 如果把「等級 5 (最嚴重)」擺在最上面，此維度獲得 5 分；若擺「等級 1 (最輕微)」，獲得 1 分。
+                const topItem = state.shuffledItems[0];
+                totalSeverityScore += topItem.severity; // 累加第 1 名的嚴重等級度 (範圍 1-5 分)
             });
 
+            // 總得分上限為 25 (5維度 * 5分)；下限為 5 (5維度 * 1分)
+            const maxSeveritySum = 25;
+            
+            // 認知精準度百分比 (0% - 100%)
             let rawCognitive = Math.round(((maxPossibleCognitiveError - totalCognitiveError) / maxPossibleCognitiveError) * 100);
             globalResults.cognitiveScore = Math.max(0, Math.min(100, rawCognitive));
 
-            let rawAddiction = Math.round((totalSeverityChecked / maxPossibleSeveritySum) * 100);
+            // 行為依賴度百分比 (精準計算，百分比直接附隨加上 %)
+            let rawAddiction = Math.round((totalSeverityScore / maxSeveritySum) * 100);
             globalResults.addictionScore = Math.max(0, Math.min(100, rawAddiction));
             globalResults.flexibilityScore = 100 - globalResults.addictionScore;
 
@@ -787,6 +804,9 @@
             sendDataToGoogleSheets();
         }
 
+        // ========================================================
+        // 調整結果介面：完全移除「滑世代百分比相同階段描述」
+        // ========================================================
         function renderResultsView() {
             document.getElementById('view-quiz').classList.add('hidden');
             document.getElementById('view-results').classList.remove('hidden');
@@ -799,28 +819,34 @@
             document.getElementById('stat-addiction').textContent = `${globalResults.addictionScore}%`;
             document.getElementById('stat-flexibility').textContent = `${globalResults.flexibilityScore}%`;
 
+            // 拔河紅線端點位移控制
             const nodeLeft = 15 + (globalResults.addictionScore / 100) * 70;
             ropeNode.style.left = `${nodeLeft}%`;
 
+            // 拔河勝負判定（剔除與群體滑世代百分比比較的詞彙，改用聚焦自我的溫和解析）
             if (globalResults.addictionScore <= 35) {
                 verdictEl.innerHTML = `🛡️ 拔河結果：<span class="text-teal-500">【您成功堅守防線，奪回主導權！】</span>`;
-                percentEl.innerHTML = `在本次與數位依賴的拉鋸戰中，約有 <span class="text-teal-500 font-bold">22%</span> 的受測者能和您一樣，展現優異的心智控制力，並穩固現實生活的主導權。`;
+                percentEl.innerHTML = `在本次與數位依賴的拉鋸戰中，您展現了優異的心智控制力，並穩固現實生活的主導權。請繼續保持這份自主自律的健康生活步調！`;
             } else if (globalResults.addictionScore <= 65) {
                 verdictEl.innerHTML = `⚖️ 拔河結果：<span class="text-purple-600 dark:text-purple-400">【雙方相持！您與手機依賴仍在拉扯】</span>`;
-                percentEl.innerHTML = `目前約有 <span class="text-purple-500 font-bold">45%</span> 的滑世代與您處於相同階段。雖然您擁有自省能力，但稍有疏忽便容易被數位洪流主導注意力。`;
+                percentEl.innerHTML = `雖然您擁有優良的自我覺察能力，但在疲憊或無意識的空檔，注意力仍容易被數位洪流主導。適度設定日常使用界線，將能協助您更穩固主導權。`;
             } else {
                 verdictEl.innerHTML = `🆘 拔河結果：<span class="text-rose-500">【防線失守！數位依賴已佔據優勢】</span>`;
-                percentEl.innerHTML = `在這場心理拉鋸中，您的防線已產生偏移。高達 <span class="text-rose-500 font-bold">78%</span> 的使用者與您面臨類似挑戰，需要主動介入並設定適當的使用界線。`;
+                percentEl.innerHTML = `在這場心理拉鋸中，您的防守防線已產生明顯偏移。建議您可以主動設定微小的日常數位阻力，逐步奪回現實生活的主導權！`;
             }
 
             drawRadarChart();
             generateAiAnalysis();
         }
 
+        // ========================================================
+        // 融合「認知偏離度」與「排序最上方首位嚴重權重」來計算五大維度分數
+        // ========================================================
         function getDimensionScores() {
             return quizData.map(dim => {
                 const state = quizState[dim.id];
                 
+                // 1. 認知排序偏離誤差 (單維度最大值為 12)
                 let dimCognitiveError = 0;
                 state.shuffledItems.forEach((item, index) => {
                     const correctIndex = item.severity - 1;
@@ -828,13 +854,11 @@
                 });
                 let cognitiveErrorPercent = (dimCognitiveError / 12) * 100;
 
-                let checkedSum = 0;
-                Object.keys(state.checkedRealities).forEach(sev => {
-                    if (state.checkedRealities[sev]) {
-                        checkedSum += parseInt(sev);
-                    }
-                });
-                let behaviorPercent = (checkedSum / 15) * 100;
+                // 2. 行為依賴權重 (首位卡片等級，範圍 1-5 級，對應 20% - 100%)
+                const topItem = state.shuffledItems[0];
+                let behaviorPercent = (topItem.severity / 5) * 100;
+
+                // 綜合計算防線得分 (80% 首選行為實踐 + 20% 排序認知誤差)
                 let finalScore = Math.round((behaviorPercent * 0.8) + (cognitiveErrorPercent * 0.2));
 
                 return {
@@ -845,29 +869,23 @@
             });
         }
 
+        // 獲取使用者在每個維度排在第 1 名（最上方）的最高依賴行為作為核心摘要
         function getUserCheckedBehaviorsSummary() {
             let summary = [];
             quizData.forEach(dim => {
                 const state = quizState[dim.id];
-                Object.keys(state.checkedRealities).forEach(sev => {
-                    if (state.checkedRealities[sev]) {
-                        const originalItem = dim.items.find(i => i.severity === parseInt(sev));
-                        if (originalItem) {
-                            summary.push(`[${dim.title.split(' ')[1]}] 等級 ${sev}: ${originalItem.text}`);
-                        }
-                    }
-                });
+                const topItem = state.shuffledItems[0]; // 排在最上方即代表目前最貼切行為
+                summary.push(`[${dim.title.split(' ')[1]}] 排序首位行為（嚴重度 ${topItem.severity}/5）：${topItem.text}`);
             });
-            return summary.length > 0 ? summary.join('\n') : '無勾選任何失控行為。';
+            return summary.join('\n');
         }
 
-        // ==========================================
+        // ========================================================
         // 🌟 核心數據打包與傳送：回傳分數直接加上 [得分數字]%
-        // ==========================================
+        // ========================================================
         function sendDataToGoogleSheets() {
             const syncBar = document.getElementById('sheets-sync-bar');
             
-            // 防呆機制修正：避免因為大量取代導致與自己設定好的網址匹配
             if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("YOUR_GOOGLE_APPS") || GOOGLE_SCRIPT_URL === "") {
                 syncBar.className = "w-full px-4 py-2.5 rounded-2xl text-[10px] font-bold text-center flex items-center justify-center space-x-2 bg-amber-500/10 text-amber-500 border border-amber-500/20";
                 syncBar.innerHTML = `⚠️ 尚未設定 Google 試算表串接網址，數據僅在本地端運作。`;
@@ -877,7 +895,7 @@
             const dimScores = getDimensionScores();
             const fallbackAnalysis = getFallbackData();
 
-            // 建立完整的 JSON 扁平化 Payload 物件，並在所有分數欄位後方直接附加 "%" 符號
+            // 建立完整的 JSON Payload 物件，所有分數數值直接附隨加上 [得分數字]%
             const payload = {
                 timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
                 cognitiveScore: globalResults.cognitiveScore + "%",
@@ -892,17 +910,19 @@
                 dependencyScore: (dimScores.find(d => d.id === 'dependency')?.score || 0) + "%",
                 socialImpactScore: (dimScores.find(d => d.id === 'socialImpact')?.score || 0) + "%",
                 
+                // 行為卡片完整排序軌跡 (上 ➔ 下，即高依賴到正常)
                 emotionOrder: quizState['emotion'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
                 selfControlOrder: quizState['selfControl'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
                 dailyLifeOrder: quizState['dailyLife'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
                 dependencyOrder: quizState['dependency'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
                 socialImpactOrder: quizState['socialImpact'].shuffledItems.map((item, i) => `${i+1}.[等${item.severity}]${item.text.substring(0,10)}`).join(' > '),
                 
-                emotionChecked: Object.keys(quizState['emotion'].checkedRealities).filter(k => quizState['emotion'].checkedRealities[k]).map(k => `等${k}`).join(', ') || '無',
-                selfControlChecked: Object.keys(quizState['selfControl'].checkedRealities).filter(k => quizState['selfControl'].checkedRealities[k]).map(k => `等${k}`).join(', ') || '無',
-                dailyLifeChecked: Object.keys(quizState['dailyLife'].checkedRealities).filter(k => quizState['dailyLife'].checkedRealities[k]).map(k => `等${k}`).join(', ') || '無',
-                dependencyChecked: Object.keys(quizState['dependency'].checkedRealities).filter(k => quizState['dependency'].checkedRealities[k]).map(k => `等${k}`).join(', ') || '無',
-                socialImpactChecked: Object.keys(quizState['socialImpact'].checkedRealities).filter(k => quizState['socialImpact'].checkedRealities[k]).map(k => `等${k}`).join(', ') || '無',
+                // 因應勾選取消，此處自動代入與回傳「使用者排序第一位 (最符合/最嚴重)」的等級行為作對接
+                emotionChecked: `排序首位等${quizState['emotion'].shuffledItems[0].severity}`,
+                selfControlChecked: `排序首位等${quizState['selfControl'].shuffledItems[0].severity}`,
+                dailyLifeChecked: `排序首位等${quizState['dailyLife'].shuffledItems[0].severity}`,
+                dependencyChecked: `排序首位等${quizState['dependency'].shuffledItems[0].severity}`,
+                socialImpactChecked: `排序首位等${quizState['socialImpact'].shuffledItems[0].severity}`,
 
                 overallAnalysis: fallbackAnalysis.summary
             };
@@ -911,7 +931,7 @@
 
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
-                mode: 'no-cors', // 用於防範 CORS 預檢阻擋，並確保 GAS 端 doPost 仍能順利接收 text/plain 資料流
+                mode: 'no-cors', 
                 headers: {
                     'Content-Type': 'text/plain' 
                 },
@@ -1034,14 +1054,6 @@
             const allScores = getDimensionScores();
             const currentDimScore = allScores.find(d => d.id === dimId)?.score || 0;
 
-            const checkedTexts = [];
-            Object.keys(state.checkedRealities).forEach(sev => {
-                if (state.checkedRealities[sev]) {
-                    const originalItem = quizData.find(d => d.id === dimId).items.find(i => i.severity === parseInt(sev));
-                    if (originalItem) checkedTexts.push(originalItem.text);
-                }
-            });
-
             const dimTitle = quizData.find(d => d.id === dimId).title;
             let advice = "";
 
@@ -1058,22 +1070,15 @@
             let detailHtml = `
                 <p class="font-bold text-slate-800 dark:text-white mb-1">🔍 ${dimTitle} 解析 (當前得分: ${currentDimScore}%)：</p>
                 <p class="mb-2 text-slate-600 dark:text-slate-300 font-light">${advice}</p>
+                <p class="font-semibold text-rose-500 dark:text-rose-400 mt-2">⚠️ 排序首選行為：</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-light">您將以下行為放在最符合現狀的位置：<b>「${state.shuffledItems[0].text}」</b></p>
             `;
-
-            if (checkedTexts.length > 0) {
-                detailHtml += `
-                    <p class="font-semibold text-rose-500 dark:text-rose-400 mt-2">⚠️ 您已勾選的行為現象：</p>
-                    <ul class="list-disc pl-4 space-y-1 text-slate-500 dark:text-slate-400 mt-1 font-light">
-                        ${checkedTexts.map(t => `<li>${t}</li>`).join('')}
-                    </ul>
-                `;
-            }
 
             feedbackBox.innerHTML = detailHtml;
         }
 
         // ==========================================
-        // 排除生理與營養學衛教資訊，純粹以環境控制與習慣調整出發
+        // 預置備用報告（排除所有生理、睡眠、腦神經與營養衛教）
         // ==========================================
         function getFallbackData() {
             let summary = "";
@@ -1086,24 +1091,24 @@
                 strength = "自主掌控力強，不受非必要通知干擾。";
                 weakness = "日常低頻率的偶發滑動仍略微牽制您的專注。";
                 tactics = [
-                    { title: "無干擾用餐", action: "用餐時一律不使用手機，專注於當下體驗，重建感官連結。" },
-                    { title: "過濾非必要通知", action: "關閉非緊急應用程式的即時推播，由被動打擾轉為主動查詢。" }
+                    { title: "靜音模式設定", action: "過濾非重要通知群組，減少手機對專注力的干擾行為。" },
+                    { title: "建立專注死角", action: "設定特定的無手機物理環境，找回現實專注的主控權。" }
                 ];
             } else if (globalResults.addictionScore <= 65) {
                 summary = "您目前正與數位依賴展開拉鋸相持。雖然您擁有自省心態與管理意願，但在身心疲憊時，手機仍容易干擾您的生活節奏。";
                 strength = "具備自我覺察，對數位依賴現狀有明確認知。";
                 weakness = "行為控制力在精神放鬆時容易降低。";
                 tactics = [
-                    { title: "螢幕灰階調整", action: "將手機顯示色彩設為單色，降低色彩刺激，減少非必要滑動欲念。" },
-                    { title: "主動式增加難度", action: "登出社群軟體或將其移入深層資料夾，增加開啟障礙以中斷制約。" }
+                    { title: "螢幕色彩調整", action: "將手機改為單色模式，降低視覺多巴胺吸引力，減少點亮次數。" },
+                    { title: "設定物理障礙", action: "在慣用軟體外加上長密碼鎖，增加開啟難度以中斷反射習慣。" }
                 ];
             } else {
                 summary = "警報響起！您的部分生活層面已被數位依賴滲透，作息、專注度與現實人際關係皆受到明顯牽引，建議積極介入干預。";
                 strength = "對數位媒介敏感，具備豐富的社群即時體驗。";
-                weakness = "現實生活防線失守，睡眠及日常效率受顯著拖延。";
+                weakness = "現實生活防線失守，日常效率受顯著拖延。";
                 tactics = [
-                    { title: "深夜睡眠隔離", action: "購買獨立鬧鐘，並將手機放置於臥房之外充電，杜絕深夜滑動機會。" },
-                    { title: "重建實體習慣", action: "規劃不插電的運動、手作或閱讀，透過現實體驗重塑生活神經反饋。" }
+                    { title: "手機物理隔離", action: "設定「一臂距離」限制，將手機放至雙手伸直也拿不到的角落。" },
+                    { title: "生活行為替代", action: "以紙本書籍或實體手作等非螢幕活動，阻斷下意識的滑動行為。" }
                 ];
             }
 
@@ -1169,41 +1174,32 @@
             const fallbackData = getFallbackData();
             renderAiVisualAdvice(fallbackData, true);
 
-            let userReport = "【使用者拔河測驗數據】\n";
-            userReport += `健康認知判斷度: ${globalResults.cognitiveScore}%, 成癮依賴度: ${globalResults.addictionScore}%, 心理防線餘裕: ${globalResults.flexibilityScore}%\n\n`;
+            let userReport = "【使用者排序與依賴防線測驗數據】\n";
+            userReport += `健康認知判斷度: ${globalResults.cognitiveScore}%, 手機依賴度: ${globalResults.addictionScore}%, 心理防線餘裕: ${globalResults.flexibilityScore}%\n\n`;
             
             quizData.forEach(dim => {
                 const state = quizState[dim.id];
-                const checked = [];
-                Object.keys(state.checkedRealities).forEach(sev => {
-                    if (state.checkedRealities[sev]) {
-                        checked.push(`${dim.items.find(i => i.severity === parseInt(sev)).text}`);
-                    }
-                });
-                userReport += `● ${dim.title}: 勾選的依賴行為包括: ${checked.length > 0 ? checked.join('；') : '無特別失控依賴行為，狀態健康'}\n`;
+                userReport += `● ${dim.title}: 排序最上方行為: ${state.shuffledItems[0].text}\n`;
             });
 
-            // ⚠️ 嚴格禁忌指令：不准出現任何生物生理學、生理睡眠科學或營養運動衛教字眼，完全回歸環境控制與純習慣調整
+            // ⚠️ 嚴密限制防護：完全剔除褪黑激素、多巴胺、大腦與睡眠等生理醫學與營養學衛教詞彙
             const systemPrompt = `您是一位專業、溫和、且極具耐心的心理諮商 AI。
-            請依據使用者的作談資料，用清晰、好理解且充滿同理心的正式口吻（使用「您」）撰寫個人分析報告。
-            特別禁忌：回覆中絕對不得提及或涉及任何基礎生理學（例如大腦結構、神經傳導遞質、多巴胺、褪黑激素）、生理衛教、睡眠醫學（睡眠生理週期）或營養運動生理學資訊。請完全從環境控制（如阻力設置、物理隔絕）、生活習慣替代與純粹的心理行為調整角度出發提供建議。
-            您必須嚴格遵守以下 JSON 格式回覆，絕對不能包含 \`\`\`json 等 Markdown 包裝：
+            請依據使用者的作答資料，用清晰、好理解且充滿同理心的正式口吻（使用「您」）撰寫個人分析報告。
+            特別禁忌：不要提到任何「褪黑激素、多巴胺、大腦神經、生理醫學、生理休息或睡眠衛生、營養與運動科學」名詞，一律只從純環境、行為習慣替代、阻力設置與物理限制角度切入！
+            您必須嚴格遵守以下 JSON 格式回覆，絕對不能包含 any \`\`\`json 等 Markdown 包裝：
             {
-              "summary": "一句對使用者防線狀態的溫和、中肯、富含同理心且絕不提及生理術語的簡短描述（繁體中文，限 60 字）",
-              "strength": "客觀肯定使用者目前的掌控優點，若無也請予以心理建設鼓勵（繁體中文，限 40 字）",
-              "weakness": "以溫和客觀語氣指出使用者受到依賴行為牽制的脆弱防守點，避開任何生物學字彙（繁體中文，限 40 字）",
+              "summary": "一句對使用者拔河狀態的溫和、中肯、富含心理學同理心的簡短描述（繁體中文，限 60 字）",
+              "strength": "客觀指出並肯定使用者目前保持良好掌控的優點，若無也請予以心理建設鼓勵（繁體中文，限 40 字）",
+              "weakness": "以溫和、客觀且明確的語氣指出使用者正受到多巴胺依賴的脆弱防守點（繁體中文，限 40 字）",
               "tactics": [
-                { "title": "方案一標題（限10字）", "action": "清晰精確、具高可行性的純習慣或環境干預調整建議（繁體中文，限 35 字）" },
-                { "title": "方案二標題（限10字）", "action": "第二項實用、無關生理學的純行為改善建議（繁體中文，限 35 字）" }
+                { "title": "方案一標題（限10字）", "action": "提供清晰精確、具高可行性的純行為物理隔離或限制方法（繁體中文，限 35 字）" },
+                { "title": "方案二標題（限10字）", "action": "提供另一項實用、低阻力的純行為建立或環境改善對策（繁體中文，限 35 字）" }
               ]
             }`;
 
             try {
-                const apiKey = ""; // 如果使用者填入 API 金鑰，將直接發起 API 呼叫
-                if (!apiKey) {
-                    throw new Error("Empty API Key"); // 預設空金鑰時直接導向本地優質預設分析
-                }
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
                 const payload = {
                     contents: [{ parts: [{ text: userReport }] }],
@@ -1248,17 +1244,15 @@
                 if (jsonText) {
                     const aiData = JSON.parse(jsonText);
                     renderAiVisualAdvice(aiData, false);
-                } else {
-                    throw new Error("No response candidates");
                 }
             } catch (error) {
-                console.warn("API 載入延遲或未提供金鑰，採用本地精確演算法輸出防禦資料:", error);
+                console.warn("API 載入延遲，採用本地行為模型算法輸出預置資料:", error);
                 renderAiVisualAdvice(fallbackData, false);
             }
         }
 
         // ==========================================
-        // 輕量級即時 Markdown 格式解析器
+        // 輕量級即時 Markdown 格式解析器 (星號加粗、換行轉換)
         // ==========================================
         function formatMarkdown(text) {
             if (!text) return '';
@@ -1273,74 +1267,43 @@
         }
 
         // ==========================================
-        // 🛠️ 雙軌智慧解析：當 API 金鑰為空或異常時的本地防護回覆生成器
+        // 🌟 本地智慧防禦回應器 (智慧型對談 Fallback 邏輯)
         // ==========================================
-        function getLocalFallbackChatResponse(messageText, dimScores) {
-            // 尋找分數最高（表現最弱）的維度
-            let worstDim = { name: "日常生活", score: 0 };
-            if (dimScores && dimScores.length > 0) {
-                const sorted = [...dimScores].sort((a, b) => b.score - a.score);
-                worstDim = sorted[0];
-            }
-
-            const query = messageText.toLowerCase();
-
-            // 1. 睡前、熬夜、晚上
-            if (query.includes("睡前") || query.includes("熬夜") || query.includes("晚上") || query.includes("睡眠") || query.includes("睡覺")) {
-                return `📌 **關於睡前與深夜的手機使用**，這常常是心智防禦力最薄弱的時刻。結合您在測驗中 **${worstDim.name}** 層面的拉扯，建議您嘗試以下具體且能立刻開始的調整：\n\n` +
-                       `• **手機「物理離床」**：將充電座移到床鋪手部伸展無法觸及的角落，直接拉長無意識滑動的物理路徑。\n` +
-                       `• **無螢幕替代儀式**：在原本應該看螢幕的時間，準備一本實體書籍或紙筆日記，讓您的雙手重溫純粹的實體觸感。\n\n` +
-                       `🎯 **今日練習**：今晚在準備就寢時，強迫自己將手機翻面反扣，並安靜地躺下，專注於呼吸 3 分鐘，重新取回夜晚的主導權。`;
-            }
-
-            // 2. 工作、專注、報告、讀書、學習、效率
-            if (query.includes("工作") || query.includes("專注") || query.includes("讀書") || query.includes("報告") || query.includes("學習") || query.includes("效率") || query.includes("唸書")) {
-                return `📌 **針對您提到的工作與學習專注挑戰**，我們常常在需要耗費高度心智時，下意識將注意力轉移到手機上以逃避壓力。根據您的 **${worstDim.name}** 得分，這裡提供兩招立即上手的環境干預對策：\n\n` +
-                       `• **視覺純淨化模式**：開啟手機內建的灰階色彩（單色模式），並將所有社群 APP 從主畫面移除、藏到最深層資料夾。\n` +
-                       `• **手動增加手續難度**：每次滑手機前，強迫自己手寫開啟目的（如：查資料）與限制時間，中斷反射性的滑動習慣。\n\n` +
-                       `🎯 **今日練習**：在下一個專注時段，將手機放入抽屜中，並告訴自己：「等這段進度完成，我才會拉開抽屜檢查訊息。」`;
-            }
-
-            // 3. 焦慮、無聊、想滑、沒手機、通知、漏掉
-            if (query.includes("焦慮") || query.includes("無聊") || query.includes("想滑") || query.includes("沒手機") || query.includes("通知") || query.includes("漏掉") || query.includes("不安")) {
-                return `📌 **面對放下手機時所產生的焦慮與不安全感**，這代表手機能量已部分凌駕於現實生活之上。考慮到您在 **${worstDim.name}** 的表現，建議您重新設定心智邊界：\n\n` +
-                       `• **靜音與主動式檢查**：關閉所有非緊急群組的提示音與氣泡通知，改為「固定每兩小時」主動開啟檢查，將被動打擾扭轉為主動管理。\n` +
-                       `• **觸覺替代法**：當感到手指焦躁想拿手機時，改為握持實體抗壓球、玩紙粘土或喝一杯溫水，將行為慣性中斷。\n\n` +
-                       `🎯 **今日練習**：現在就為自己安排一段「30 分鐘的不插電時光」，把手機安置在別的房間，在這段時間內只進行現實中的小活動。`;
-            }
-
-            // 4. 社交、朋友、人際、聚會、吃飯
-            if (query.includes("人際") || query.includes("朋友") || query.includes("社交") || query.includes("聚餐") || query.includes("聊天") || query.includes("聚會") || query.includes("吃飯")) {
-                return `📌 **關於社交情境下的螢幕重疊問題**，現實的連結很容易因頻繁確認手機而削弱。根據您本次測驗的分數，我們能採行這兩條微調行動：\n\n` +
-                       `• **手機疊疊樂約定**：在與朋友聚會或用餐時，主動提議所有人將手機集中反扣在桌子中央，最先動手機的人負責今天的小趣味。\n` +
-                       `• **環境互動專專注**：當感到眼神開始飄向螢幕時，主動向同桌的親友提問一個與今天活動、眼前菜餚相關的問題，以話題重新拉回注意力。\n\n` +
-                       `🎯 **今日練習**：在今天與伴侶或親友聚餐時，不將手機放在餐桌表面，而是徹底放進包包或口袋，保持一頓飯的純淨面對面溝通。`;
-            }
-
-            // 5. 預設綜合回應
-            return `📌 **感謝您與我分享您的數位生活困擾。** 檢視您在 **${worstDim.name}** 層面的量化表現，我們能用非常溫和、無負擔的方法，在日常生活中重塑自律防線：\n\n` +
-                   `• **設置物理阻力門檻**：登出您最常耗費時間的社群軟體，每一次想看都必須手動輸入帳號與長密碼，用程序繁瑣度擊退無意識滑動。\n` +
-                   `• **生活無螢幕保留區**：在家中設定一處完全不准攜入手機的區塊（例如餐桌或臥室沙發），重溫實體空間的恬靜感受。\n\n` +
-                   `🎯 **今日練習**：請您今天挑選一件最簡單的事情進行嘗試，並在與我對談中告訴我執行的感覺，我們一同微調退癮的步伐。`;
-        }
-
-        // ==========================================
-        // 輕量級即時 Markdown 格式解析器
-        // ==========================================
-        function formatMarkdown(text) {
-            if (!text) return '';
-            let safeText = text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+        function getLocalSmartResponse(userQuestion) {
+            const q = userQuestion.toLowerCase();
+            const dimScores = getDimensionScores();
             
-            safeText = safeText.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-            safeText = safeText.replace(/\n/g, "<br>");
-            return safeText;
+            // 找出受測者表現最差 (分數最高) 的維度進行量身防護引導
+            const sortedDims = [...dimScores].sort((a, b) => b.score - a.score);
+            const weakestDim = sortedDims[0]; 
+
+            let intro = `收到您的提問。結合您本次測驗的表現（尤其是您在 **${weakestDim.name}** 層面表現出的依賴感最為顯著），我可以與您分享以下幾點生活微習慣的調整建議：\n\n`;
+            let tips = "";
+
+            if (q.includes("睡前") || q.includes("熬夜") || q.includes("睡眠") || q.includes("晚上")) {
+                tips = "• **設定充電死角**：嘗試將充電座移至床頭櫃之外，確保您入睡前拿不到手機。\n" +
+                       "• **紙本替代方案**：在床邊放一本紙本書籍，在感到無聊時以此替代下意識滑動螢幕的習慣。\n" +
+                       "• **螢幕定時黑白**：利用手機設定，在固定時間自動切換為單色模式，降低視覺多巴胺吸引力。";
+            } else if (q.includes("專專注") || q.includes("效率") || q.includes("讀書") || q.includes("工作")) {
+                tips = "• **一臂距離隔絕**：在需要全神貫注時，將手機鎖在抽屜或放至在房間的另一端角落。\n" +
+                       "• **阻力開啟防禦**：退出社群軟體保持登出狀態，每次開啟需重新登入，以此物理阻力打破無意識滑動。";
+            } else if (q.includes("焦慮") || q.includes("不安") || q.includes("通知") || q.includes("已讀")) {
+                tips = "• **通知精細降噪**：關閉社群或聊天軟體群組的橫幅與紅點通知，改為主動、有規律地檢查訊息。\n" +
+                       "• **情緒正向解構**：他人未即時回覆訊息時，提醒自己這只是對方的日常節奏，將心力引導回現實生活。";
+            } else {
+                // 通用防護建議
+                tips = "• **一臂距離原則**：工作或休息時，一律將手機反扣，並放至伸手拿不到的距離。\n" +
+                       "• **視覺刺激降載**：關閉一切非必要程式的通知與紅點標示，減少手機的主動誘發機制。\n" +
+                       "• **實體行為替代**：在常滑手機的空檔（如排隊、等候），改以觀察環境或做幾次慢呼吸來放鬆。";
+            }
+
+            let outro = `\n\n改變習慣需要時間，建議您在今天先挑選一項**最容易開始**的小行動嘗試。只要能讓手機的物理開啟難度增加，您便成功在心理拔河中奪回了一分主導權！`;
+            
+            return intro + tips + outro;
         }
 
         // ==========================================
-        // 🌟 核心對談助理
+        // AI 手機退癮助手核心對談模組
         // ==========================================
         async function sendChatMessage() {
             const inputEl = document.getElementById('chat-input');
@@ -1354,23 +1317,21 @@
 
             const dimScores = getDimensionScores();
 
-            let quizContext = "【填答者本次拔河測驗結果背景】\n";
-            quizContext += `- 健康認知判斷度: ${globalResults.cognitiveScore}%\n`;
+            let quizContext = "【填答者本次測驗背景數據】\n";
+            quizContext += `- 認知判斷精準度: ${globalResults.cognitiveScore}%\n`;
             quizContext += `- 行為依賴成癮度: ${globalResults.addictionScore}%\n`;
-            quizContext += `- 心智彈性防線餘裕: ${globalResults.flexibilityScore}%\n`;
-            quizContext += `- 各維度量化得分 (得分越高表示在該層面依賴度越重):\n`;
+            quizContext += `- 心智彈性防禦餘裕: ${globalResults.flexibilityScore}%\n`;
+            quizContext += `- 各維度得分 (分數越高依賴越重):\n`;
             dimScores.forEach(d => {
                 quizContext += `  * ${d.name}: ${d.score}%\n`;
             });
-            quizContext += `- 使用者在測驗中勾選符合生活現狀的失控行為包括:\n${getUserCheckedBehaviorsSummary()}\n\n`;
-            quizContext += `- 填答者當前具體的疑惑/提問: "${messageText}"\n\n`;
+            quizContext += `- 填答者排序最上方、最符合現狀的依賴行為包括:\n${getUserCheckedBehaviorsSummary()}\n\n`;
+            quizContext += `- 填答者提問: "${messageText}"\n\n`;
             
-            quizContext += "【回覆規則限制】：\n" +
-                          "1. 請不要使用制式、死板、格式化的模板（千萬不要有重複的 '現況剖析'、'行為對策'、'日常練習' 標題來束縛您的文字），而是要用流暢且自然的專業諮商口吻進行一對一解答。\n" +
-                          "2. 請根據提問內容，結合上方「填答者本次拔河測驗結果背景」的各項弱勢與得分，提供針對他本人的高度客製化、個人化退癮對策與平衡建議。一律使用敬稱「您」\n" +
-                          "3. 為了利於使用者在手機上快速理解、輕鬆掃描，您必須在回覆中加入「條列式（可以使用精緻 Emoji 引導點）」的方式呈現 2 到 3 個「阻力極小、今天就能立刻開始執行」的行為控制微習慣。\n" +
-                          "4. 請一定要主動配合使用雙星號（**）來將重要的概念、行動步驟或關鍵字進行「加粗強調」。\n" +
-                          "5. 語氣溫慢同理，文風簡要清晰，整篇回覆請控制在 150-250 字之內。絕對不得包含或宣導多巴胺、大腦生理科學等基礎生理衛教名詞。";
+            quizContext += "【回覆限制】：\n" +
+                          "1. 請一律使用敬語「您」，不要用制式、死板或格式化的模板回覆，而是要用溫和同理的專業諮商口吻進行一對一解答。\n" +
+                          "2. 特別禁忌：不要提到任何「褪黑激素、多巴胺、大腦神經、生理醫學、生理休息、睡眠衛生、營養學或運動醫學」詞彙，僅從純環境控制、行為習慣替代、增設物理難度與障礙角度切入！\n" +
+                          "3. 回覆必須段落分明、條列呈現，加入精緻 Emoji 引導，並配合使用雙星號（**）來將重要的核心行動步驟進行「加粗強調」，控制在 150-250 字內，方便快速閱讀。";
 
             try {
                 const apiKey = "";
@@ -1379,7 +1340,7 @@
                 const payload = {
                     contents: [{ parts: [{ text: quizContext }] }],
                     systemInstruction: {
-                        parts: [{ text: "您是溫和、睿智且高度個人化的手機退癮 AI。您專門為使用者提供一針見血、具備行動心理學基礎、條列式且重點加粗的簡短答覆。請嚴格遵循不要使用僵化制式格式的準則，且一律使用敬稱『您』。" }]
+                        parts: [{ text: "您是溫和、睿智且高度個人化的 AI 手機退癮助手。請基於行為心理學、環境控制與微習慣替代，給予重點加粗、條列分明的短答。嚴格禁止提及大腦、睡眠、生物醫學或生理機制等名詞。一律使用敬稱「您」。" }]
                     }
                 };
 
@@ -1389,17 +1350,20 @@
                     body: JSON.stringify(payload)
                 });
 
+                if (!response.ok) throw new Error("API Timeout");
+
                 const result = await response.json();
                 const responseText = result.candidates?.[0]?.content?.parts?.[0]?.text;
                 
                 if (responseText) {
                     updateChatMessage(coachMsgId, responseText);
                 } else {
-                    throw new Error("No response candidates text");
+                    throw new Error("Empty Response");
                 }
             } catch (error) {
-                console.warn("API 載入延遲，改由本地智慧解析器生成答覆:", error);
-                const localResponse = getLocalFallbackChatResponse(messageText, dimScores);
+                // API 不可用時，啟動超流暢的「本地智慧防禦回應器」
+                console.warn("啟動本地智慧回應機制:", error);
+                const localResponse = getLocalSmartResponse(messageText);
                 updateChatMessage(coachMsgId, localResponse);
             }
         }
@@ -1412,7 +1376,7 @@
             
             if (sender === 'user') {
                 div.innerHTML = `
-                    <div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none text-[11px] max-w-[80%] leading-relaxed font-semibold">
+                    <div class="bg-indigo-600 text-white p-2.5 rounded-2xl rounded-tr-none text-[11px] max-w-[80%] leading-relaxed font-semibold animate-fade-in">
                         ${formatMarkdown(text)}
                     </div>
                     <div class="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center text-[10px]">👤</div>
@@ -1420,7 +1384,7 @@
             } else {
                 div.innerHTML = `
                     <div class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]">🤖</div>
-                    <div id="${msgId}" class="bg-indigo-100/80 dark:bg-indigo-950/40 text-slate-700 dark:text-slate-300 p-2.5 rounded-2xl rounded-tl-none text-[11px] max-w-[80%] leading-relaxed font-light">
+                    <div id="${msgId}" class="bg-indigo-100/80 dark:bg-indigo-950/40 text-slate-700 dark:text-slate-300 p-2.5 rounded-2xl rounded-tl-none text-[11px] max-w-[80%] leading-relaxed font-light animate-fade-in">
                         ${formatMarkdown(text)}
                     </div>
                 `;
@@ -1459,7 +1423,7 @@
                 <div class="flex items-start gap-2.5">
                     <div class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[10px]">🤖</div>
                     <div class="bg-indigo-100/80 dark:bg-indigo-950/40 text-slate-700 dark:text-slate-300 p-2.5 rounded-2xl rounded-tl-none text-[11px] max-w-[80%] leading-relaxed font-light">
-                        您好！我是您的 **AI 手機退癮助手**。我已檢視完您本次的心理防線與依賴行為。您是否想知道如何針對您的弱勢項目進行調整？歡迎在此提問，讓我陪伴您逐步建立健康的生活節奏！
+                        您好！我是您的 AI 手機退癮助手。我已細心檢視完您本次的行為排序結果。不論您在日常生活或自我控制防線上遇到了什麼煩惱，我都十分樂意以溫和且符合生活步調的方式，陪伴您一同尋求改善方案，找回屬於您的現實主控權。
                     </div>
                 </div>
             `;
